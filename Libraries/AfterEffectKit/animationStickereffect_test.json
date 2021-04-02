@@ -1,0 +1,26 @@
+{
+  "result" : {
+    "noFilterOnSticker" : true,
+    "name" : "animationStickereffect_test",
+    "distortionType" : 1,
+    "modifiedDate" : 0,
+    "resourceEncryption" : false,
+    "items" : [
+      {
+        "fps" : 20,
+        "resourceType" : "SEQUENCE",
+        "config" : {
+
+        },
+        "triggerType" : "FACE_DETECT",
+        "resourceName" : "script.zip",
+        "drawType" : "SCRIPT"
+      }
+    ],
+    "customizedTooltip" : "",
+    "renderByOrder" : true,
+    "skipOptimizationOnResource" : true,
+    "stickerId" : 900078,
+    "kadianSingleOption" : true
+  }
+}

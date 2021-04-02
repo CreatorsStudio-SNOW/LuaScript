@@ -1,0 +1,35 @@
+{
+  "templateName" : "NewKira",
+  "version" : "0.0.2",
+  "dataModels" : [
+    {
+      "postEditStrength" : 1.2,
+      "faceMasking" : true,
+      "isLuminance" : true,
+      "name" : "Common0",
+      "previewStrength" : 1.2,
+      "modelType" : "Common",
+      "kiraType" : "BOTH",
+      "afterImageStrength" : 0.15
+    },
+    {
+      "areaThreshold" : 0,
+      "maxScale" : 2.4000000953674316,
+      "minScale" : 1.8000000715255737,
+      "name" : "Static1",
+      "elementSize" : 0,
+      "rotate" : 0,
+      "modelType" : "Static"
+    },
+    {
+      "modelType" : "Animation",
+      "fps" : 24,
+      "elementSize" : 0,
+      "minScale" : 3,
+      "rotate" : 0,
+      "areaThreshold" : 0,
+      "maxScale" : 3.7000000476837158,
+      "name" : "Animation2"
+    }
+  ]
+}

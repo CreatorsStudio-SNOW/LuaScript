@@ -1,0 +1,144 @@
+material textured
+{
+    u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+    sampler u_diffuseTexture
+    {
+        mipmap = true
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+
+    renderState
+    {
+        dstBlend = ONE_MINUS_SRC_ALPHA
+        srcBlend = SRC_ALPHA
+        blend = true
+        cullFace = true
+        depthTest = true
+    }
+    technique
+    {
+        pass 
+        {
+            vertexShader = res/shaders/textured.vert
+            fragmentShader = res/shaders/textured.frag
+        }
+    }
+}
+
+material cap_01 : textured
+{
+    u_subTexScale = 2.60
+    u_displacementScaleFactor = 0.00
+    u_spacing = 0.01
+    u_furRenderPassCount = 60
+    u_furColorMin = 1.00
+    u_furColorOffset = 1.00
+    sampler u_diffuseTexture
+    {
+        path = corduroy_basecolor.jpg
+        mipmap = true
+        cubeMap = false
+        wrapS = REPEAT
+        wrapT = REPEAT
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+    sampler u_normalmapTexture
+    {
+        path = corduroy_Normal.jpg
+        mipmap = false
+        cubeMap = false
+        wrapS = REPEAT
+        wrapT = REPEAT
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+    sampler u_rimTexture
+    {
+        path = rim.png
+        mipmap = false
+        cubeMap = false
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+    sampler u_furSubTexture
+    {
+        path = fur.png
+        mipmap = false
+        cubeMap = false
+        wrapS = REPEAT
+        wrapT = REPEAT
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+    u_specularAttenuation = 0.12
+    u_rimRatio = 0.40
+    u_normalMixFactor = 1.00
+    u_ambientColor = 0.588, 0.588, 0.588
+    u_cameraPosition = CAMERA_WORLD_POSITION
+    u_inverseTransposeWorldViewMatrix = INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX
+    u_specularExponent = 34.20
+
+    technique
+    {
+        pass 
+        {
+            defines = FUR_SHADE;SPECULAR_ATTENUATION;USE_RIM;BUMPED;RENDER_MODE_V;SPECULAR
+        }
+    }
+}
+
+material face : textured
+{
+    u_ambientColor = 0.588, 0.588, 0.588
+    u_specularExponent = 2
+    sampler u_diffuseTexture
+    {
+        path = green.png
+        mipmap = false
+        cubeMap = false
+        wrapS = REPEAT
+        wrapT = REPEAT
+        minFilter = LINEAR
+        magFilter = LINEAR
+    }
+
+    technique
+    {
+        pass 
+        {
+            defines = CHROMAKEY;RENDER_MODE_V;SPECULAR
+        }
+    }
+}
+
+material shadow : textured
+{
+    u_modulateAlpha = 0.23
+    u_ambientColor = 0.588, 0.588, 0.588
+    u_specularExponent = 2
+    sampler u_diffuseTexture
+    {
+        path = shadow.png
+        mipmap = false
+        cubeMap = false
+        wrapS = REPEAT
+        wrapT = REPEAT
+        minFilter = LINEAR
+        magFilter = LINEAR
+    }
+
+    technique
+    {
+        pass 
+        {
+            defines = MODULATE_ALPHA;RENDER_MODE_V;
+        }
+    }
+}
+

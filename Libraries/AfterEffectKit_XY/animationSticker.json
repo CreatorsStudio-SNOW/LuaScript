@@ -1,0 +1,28 @@
+{
+  "result" : {
+    "filterName" : "236",
+    "noFilterOnSticker" : true,
+    "contentType" : "ZEPETO_PHOTO_BOOTH",
+    "slider" : {
+      "type" : "MAKEUP",
+      "defaultValue" : 70,
+      "icon" : [{"id": "ALL", "value": "/slider/makeup_v2.png"}]
+    },
+    "zepeto" : {
+      "codeList" : [ "92E2ZZ" ],
+      "photoBoothList" : [ "PHOTOBOOTH_ONE_179", "PHOTOBOOTH_ONE_187", "PHOTOBOOTH_ONE_79" ]
+    },
+    "renderByOrder" : true,
+    "customizedTooltip" : "触屏改变emoji大小和位置😘👑",
+    "soundItems" : [ ],
+    "stickerId" : 309431,
+    "items" : [ {
+      "id" : "1",
+      "drawType" : "SCRIPT",
+      "resourceType" : "SEQUENCE",
+      "resourceName" : "script.zip"
+    } ],
+    "modifiedDate" : 13,
+    "name" : "tap_emoji_stickermanager"
+  }
+}

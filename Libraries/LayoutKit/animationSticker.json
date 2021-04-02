@@ -1,0 +1,61 @@
+{
+  "result" : {
+    "filterName" : "0",
+    "noFilterOnSticker" : true,
+    "renderByOrder" : true,
+    "soundItems" : [ ],
+    "sceneConfig" : {
+      "ambientColor" : {
+        "x" : 1,
+        "y" : 1,
+        "z" : 1
+      },
+      "ambientLightRatio" : 0.37,
+      "ambientMultiply" : true,
+      "applyGlow" : true,
+      "applySelfShadow" : true,
+      "applyShadow" : false,
+      "cachePolicy" : "ALL",
+      "directionLights" : [ {
+        "color" : {
+          "x" : 1,
+          "y" : 1,
+          "z" : 1
+        },
+        "direction" : {
+          "x" : -1,
+          "y" : -1,
+          "z" : -1
+        },
+        "enableShadow" : true
+      } ],
+      "distortionJson" : "",
+      "faceCount" : 1,
+      "faceIdxOffset" : 0,
+      "fieldOfView" : 45,
+      "fpsFor3d" : 20,
+      "gammaFactor" : 2.2,
+      "glowBlurSize" : 1,
+      "glowScaleFactor" : 2,
+      "pointLights" : [ ],
+      "shadowStrength" : 1,
+      "useSuperSampling" : false
+    },
+    "stickerId" : 316055,
+    "items" : [ {
+      "fps" : 20,
+      "flipHorizontally" : true,
+      "scaleXYZ" : {
+        "x" : 0.5,
+        "y" : 0.5,
+        "z" : 0.5
+      },
+      "drawType" : "FACE_3D",
+      "id" : "1",
+      "resourceType" : "SEQUENCE",
+      "resourceName" : "qa2.zip"
+    } ],
+    "modifiedDate" : 5,
+    "name" : "sticker_glow"
+  }
+}

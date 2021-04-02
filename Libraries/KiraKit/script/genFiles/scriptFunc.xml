@@ -1,0 +1,146 @@
+<genRule version="0.0.2" dstFilePath="kiraItemList.lua" convertSrc="convertFunc.lua" developer = "홍성곤">
+    <codeBlocks>
+        <global>
+          KiraType = {
+            SINGLE = 1,
+            ANIMATION = 2,
+            BOTH = 3
+          }
+        </global>
+        <global>g_kiraType = KiraType.^{dataModels[1].kiraType}^</global>
+        <global>g_strength = ^{dataModels[1].previewStrength}^</global>
+        <global>g_postEditStrength = ^{dataModels[1].postEditStrength}^</global>
+        <global>g_disappearStrength = ^{dataModels[1].afterImageStrength}^</global>
+        <global>IS_FACE_MASKING = ^{dataModels[1].faceMasking}^</global>
+        <global>IS_LUMINANCE_MODE = ^{dataModels[1].isLuminance}^</global>
+
+        <global>g_minScale = ^{dataModels[2].minScale}^</global>
+        <global>g_maxScale = ^{dataModels[2].maxScale}^</global>
+        <global>g_elementSize = ^{dataModels[2].elementSize}^</global>
+        <global>g_areaThreshold = ^{dataModels[2].areaThreshold}^</global>
+        <global>g_rotateZ = ^{dataModels[2].rotate}^</global>
+
+        <global>g_aniMinScale = ^{dataModels[3].minScale}^</global>
+        <global>g_aniMaxScale = ^{dataModels[3].maxScale}^</global>
+        <global>g_aniElementSize = ^{dataModels[3].elementSize}^</global>
+        <global>g_aniAreaThreshold = ^{dataModels[3].areaThreshold}^</global>
+        <global>g_aniRotateZ = ^{dataModels[3].rotate}^</global>
+        <global>g_fps = ^{dataModels[3].fps}^</global>
+
+        <global>
+          SINGLE_ITEMS = {
+              {minScale = g_minScale, maxScale = g_maxScale, elementSize = math.floor(g_elementSize), areaThreshold = g_areaThreshold, rotateZ = g_rotateZ}
+          }
+        </global>
+        <global>
+          ANIMATION_ITEMS = {
+             {minScale = g_aniMinScale, maxScale = g_aniMaxScale, elementSize = math.floor(g_aniElementSize), areaThreshold = g_aniAreaThreshold, rotateZ = g_aniRotateZ, fps = g_fps}
+          }
+        </global>
+    </codeBlocks>
+    <rootChildGenModels>
+        <genModel modelType ="Common" min="1" max="1"></genModel>
+        <genModel modelType ="Static" min="1" max="1"></genModel>
+        <genModel modelType ="Animation" min="1" max="1"></genModel>
+    </rootChildGenModels>
+    <genModels>
+        <genModel modelType="Common">
+            <properties>
+              <property name ="kiraType" type="enum" description="KiraType" default = "BOTH">
+                <enum>
+                    <element>SINGLE</element>
+                    <element>ANIMATION</element>
+                    <element>BOTH</element>
+                </enum>
+                <setterString>
+                  g_kiraType = KiraType.^{self}^
+                </setterSting>
+              </property>
+              <property name = "previewStrength" type="float" default="1.0" min="0.0" max ="2.5">
+                <setterString>
+                  g_strength = ^{self}^
+                </setterString>
+              </property>
+              <property name = "postEditStrength" type="float" default="1.0" min="0.0" max ="2.5">
+                <setterString>
+                  g_postEditStrength = ^{self}^
+                </setterString>
+              </property>
+              <property name = "afterImageStrength" type="float" default="1.0" min="0.0" max ="2.5">
+                <setterString>
+                  g_disappearStrength = ^{self}^
+                </setterString>
+              </property>
+              <property name = "faceMasking" type="bool" default="true">
+                  IS_FACE_MASKING = ^{self}^
+              </property>
+              <property name = "isLuminance" type="bool" default="true">
+                  IS_LUMINANCE_MODE = ^{self}^
+              </property>
+            </properties>
+        </genModel>
+        <genModel modelType="Static">
+            <properties>
+              <property name = "minScale" type="shortFloat" default="5.0" min="0.0" max ="20.0">
+                <setterString>
+                  g_minScale = ^{self}^
+                </setterString>
+              </property>
+              <property name = "maxScale" type="shortFloat" default="5.0" min="0.0" max ="20.0">
+                <setterString>
+                  g_maxScale = ^{self}^
+                </setterString>
+              </property>
+              <property name = "elementSize" type="int" default="0" min="0" max ="10">
+                <setterString>
+                  g_elementSize = ^{self}^
+                </setterString>
+              </property>
+              <property name = "areaThreshold" type="shortFloat" default="0.0" min="0.0" max ="10.0">
+                <setterString>
+                  g_areaThreshold = ^{self}^
+                </setterString>
+              </property>
+              <property name = "rotate" type="shortFloat" default="0.0" min="-360.0" max ="360.0">
+                <setterString>
+                  g_rotateZ = ^{self}^
+                </setterString>
+              </property>
+            </properties>
+        </genModel>
+        <genModel modelType="Animation">
+            <properties>
+              <property name = "minScale" type="shortFloat" default="5.0" min="0.0" max ="20.0">
+                <setterString>
+                  g_aniMinScale = ^{self}^
+                </setterString>
+              </property>
+              <property name = "maxScale" type="shortFloat" default="5.0" min="0.0" max ="20.0">
+                <setterString>
+                  g_aniMaxScale = ^{self}^
+                </setterString>
+              </property>
+              <property name = "elementSize" type="int" default="0" min="0" max ="10">
+                <setterString>
+                  g_aniElementSize = ^{self}^
+                </setterString>
+              </property>
+              <property name = "areaThreshold" type="shortFloat" default="0.0" min="0.0" max ="10.0">
+                <setterString>
+                  g_aniAreaThreshold = ^{self}^
+                </setterString>
+              </property>
+              <property name = "rotate" type="shortFloat" default="0.0" min="-360.0" max ="360.0">
+                <setterString>
+                  g_aniRotateZ = ^{self}^
+                </setterString>
+              </property>
+              <property name = "fps" type="int" default="24" min="1" max ="30">
+                <setterString>
+                  g_fps = ^{self}^
+                </setterString>
+              </property>
+            </properties>
+        </genModel>
+    </genModels>
+</genRule>

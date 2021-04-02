@@ -1,0 +1,19 @@
+{
+  "uploads" : [
+    {
+      "isForPreview" : false,
+      "thumbnail" : "http:\/\/10.106.220.129\/resource\/sticker\/334110\/334110_thumb_1606368721705.png",
+      "id" : 334110,
+      "lastUpdate" : 628602371.44674397,
+      "server" : "Kaji Beta",
+      "version" : 9,
+      "category" : {
+        "id" : 20299,
+        "name" : "SCTemplate"
+      },
+      "contentType" : {
+        "name" : ""
+      }
+    }
+  ]
+}

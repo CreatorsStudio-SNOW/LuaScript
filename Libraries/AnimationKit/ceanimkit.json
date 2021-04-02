@@ -1,0 +1,21 @@
+{
+  "result" : {
+    "distortionType" : 31,
+    "items" : [
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "mergeable" : true,
+        "resourceName" : "scc_ceanimkit_june.zip",
+        "resourceType" : "SEQUENCE"
+      }
+    ],
+    "modifiedDate" : 4,
+    "name" : "ceanimkit",
+    "noFilterOnSticker" : true,
+    "renderByOrder" : true,
+    "resourceEncryption" : false,
+    "stickerId" : 334110,
+    "useLip240" : true
+  }
+}

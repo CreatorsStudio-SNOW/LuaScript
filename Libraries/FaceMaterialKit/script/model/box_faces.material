@@ -1,0 +1,152 @@
+material colored
+{
+    u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+
+    renderState
+    {
+        cullFace = true
+        depthTest = true
+    }
+
+    technique
+    {
+        pass
+        {
+            vertexShader = res/shaders/colored.vert
+            fragmentShader = res/shaders/colored.frag
+        }
+    }
+}
+
+material textured
+{
+    u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+
+    sampler u_diffuseTexture
+    {
+        mipmap = true
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+
+    renderState
+    {
+        cullFace = true
+        depthTest = true
+    }
+
+    technique
+    {
+        pass
+        {
+            vertexShader = res/shaders/textured.vert
+            fragmentShader = res/shaders/textured.frag
+        }
+    }
+}
+
+material Material : colored
+{
+    u_ambientColor = 0.0508761, 0.0508761, 0.0508761
+    u_cameraPosition = CAMERA_WORLD_POSITION
+    u_diffuseColor = 0.8, 0.8, 0.8, 1
+    u_inverseTransposeWorldViewMatrix = INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX
+    u_specularExponent = 36
+
+    technique
+    {
+        pass
+        {
+            defines = SPECULAR
+        }
+    }
+}
+
+material changeFaceMat : textured
+{
+    u_ambientColor = 0.0508761, 0.0508761, 0.0508761
+    u_specularExponent = 25
+
+    sampler u_diffuseTexture
+    {
+        path = face.jpg
+        wrapS = REPEAT
+        wrapT = REPEAT
+    }
+
+    technique
+    {
+        pass
+        {
+            defines = SPECULAR
+        }
+    }
+}
+
+material chroma_green : textured
+{
+    u_ambientColor = 0.0508761, 0.0508761, 0.0508761
+    u_specularExponent = 20
+    u_textureOffset = 0, -1
+
+    sampler u_diffuseTexture
+    {
+        path = green.png
+        wrapS = REPEAT
+        wrapT = REPEAT
+    }
+
+    technique
+    {
+        pass
+        {
+            defines = CHROMAKEY;RENDER_MODE_V;SPECULAR
+        }
+    }
+}
+
+material faceMat : textured
+{
+    u_ambientColor = 0.0508761, 0.0508761, 0.0508761
+    u_cameraPosition = CAMERA_WORLD_POSITION
+    u_inverseTransposeWorldViewMatrix = INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX
+    u_specularExponent = 25
+
+    sampler u_diffuseTexture
+    {
+        path = face.jpg
+        wrapS = REPEAT
+        wrapT = REPEAT
+    }
+
+    technique
+    {
+        pass
+        {
+            defines = SPECULAR
+        }
+    }
+}
+
+material faceSmallMat : textured
+{
+    u_ambientColor = 0.0508761, 0.0508761, 0.0508761
+    u_specularExponent = 25
+
+    sampler u_diffuseTexture
+    {
+        path = face.jpg
+        wrapS = REPEAT
+        wrapT = REPEAT
+    }
+
+    technique
+    {
+        pass
+        {
+            defines = SPECULAR
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "script" : "index.lua",
+    "nodes" : [
+      ],
+    "extensions" : [
+      "KuruFaceDetector"
+    ]
+}

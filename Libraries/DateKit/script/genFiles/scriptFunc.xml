@@ -1,0 +1,240 @@
+<genRule version="1.0.0" dstFilePath="script.lua" convertSrc="convertFunc.lua" developer="홍성곤">
+    <requiredLuaCode>DateKit/DateKit.lua</requiredLuaCode>
+    <codeBlocks>
+        <global>
+          AlignType = {
+          Horizontal = 1,
+          Vertical = 2
+          }
+        </global>
+        <global>
+          PropertyType = {
+            Format = 1,
+            Scale = 2,
+            TransX = 3,
+            TransY = 4,
+            Rotate = 5,
+            Anchor = 6,
+            Variant = 7,
+            Fill = 8,
+            Ratio = 9,
+            Align = 10,
+            Blend = 11
+          }
+        </global>
+        <global>g_scene = nil</global>
+        <global>g_dateKit = nil</global>
+        <global>g_dateNodes = {}</global>
+        <global>g_frameBufferNodes = {}</global>
+        <global>g_configs = {}</global>
+        <function name="initialize" param="scene" isCallBack="true">
+          DateUtil.init()
+          g_scene = scene
+          g_dateKit = DateKit.create(scene)
+          g_configs = {
+            ^{_getInitializeDataModels(dataModels)}^
+          }
+
+          for i = 1, #g_configs do
+            addBGNode(scene, i)
+          end
+    </function>
+    <function name="frameReady" param="scene, elapsedTime" isCallBack="true">
+      local config = KuruEngine.getInstance():getCameraConfig()
+
+      if config["isImageMode"] == nil or config:isImageMode() == false then
+        g_dateKit:frameReady(scene)
+        updateDateNodes()
+      end
+    </function>
+    <function name="finalize" param="scene" isCallBack="true">
+      if (g_dateKit ~= nil) then
+        g_dateKit:release()
+      end
+    </function>
+    <function name="updateDateNodes">
+      for i = 1, #g_frameBufferNodes do
+        if (g_frameBufferNodes[i] ~= nil) then
+          g_scene:removeNode(g_frameBufferNodes[i])
+        end
+      end
+
+      for i = 1, #g_dateNodes do
+        if (g_dateNodes[i] ~= nil) then
+          g_scene:removeNode(g_dateNodes[i])
+        end
+
+        addBGNode(g_scene, i)
+      end
+    </function>
+    <function name="addBGNode" param="scene, index">
+      local config = g_configs[index]
+      local format = config[PropertyType.Format]
+      local scaleValue = config[PropertyType.Scale]
+      local transX = config[PropertyType.TransX]
+      local transY = config[PropertyType.TransY]
+      local rotateZ = config[PropertyType.Rotate]
+      local anchor = config[PropertyType.Anchor]
+      local variant = config[PropertyType.Variant]
+      local fillMode = config[PropertyType.Fill]
+      local ratioType = config[PropertyType.Ratio]
+      local isHorizontal = (config[PropertyType.Align] == AlignType.Horizontal)
+      local blendModeType = config[PropertyType.Blend]
+
+      g_frameBufferNodes[index] = g_dateKit:getFrameBuffer(format, isHorizontal)
+      g_dateNodes[index] = KuruBackgroundImageNode.createFromSampler(g_frameBufferNodes[index]:getSampler())
+      g_dateNodes[index]:setStretch(fillMode)
+      g_dateNodes[index]:setAnchorType(anchor)
+      g_dateNodes[index]:setRotationMode(variant)
+      g_dateNodes[index]:rotateZ(rotateZ)
+      g_dateNodes[index]:setScale(scaleValue, scaleValue, 1.0)
+      g_dateNodes[index]:setTranslation(transX, transY, 0.0)
+      g_dateNodes[index]:getStickerItem().aspectRatio = ratioType
+      scene:addNodeAndRelease(g_dateNodes[index])
+    </function>
+    </codeBlocks>
+    <rootChildGenModels>
+        <genModel modelType ="DateType" min="1" max="100"></genModel>
+    </rootChildGenModels>
+    <genModels>
+        <genModel modelType="DateType">
+          <requiredFunctions>updateDateNodes</requiredFunctions>
+          <requiredFunctions>addBGNode</requiredFunctions>
+            <code type="initialize">
+              {
+                "^{format}^",
+                ^{scale}^,
+                ^{translateX}^,
+                ^{translateY}^,
+                ^{rotate}^,
+                KuruBackgroundImageNodeAnchorType.^{anchorType}^,
+                StickerItemRotationMode.^{rotationMode}^,
+                KuruBackgroundImageNodeStretch.^{fillMode}^,
+                CameraConfigAspectRatio.^{ratio}^,
+                AlignType.^{align}^,
+                ^{blendMode}^
+              },
+            </code>
+        <properties>
+          <property name ="format" type="enum" description="FORMAT" default = "ss">
+            <enum>
+                <element>yyyy</element>
+                <element>yy</element>
+                <element>mm</element>
+                <element>dd</element>
+                <element>ampm</element>
+                <element>hh</element>
+                <element>minmin</element>
+                <element>ss</element>
+                <element>msms</element>
+                <element>month</element>
+                <element>weekday</element>
+                <element>colon</element>
+                <element>.</element>
+                <element>/</element>
+            </enum>
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Format] = "^{self}^"
+              updateDateNodes()
+            </setterSting>
+          </property>
+          <property name ="scale" type="float" default="1.0" min="0.0" max="2.0">
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Scale] = ^{self}^
+              updateDateNodes()
+            </setterSting>
+          </property>
+          <property name ="translateX" type="float" default="0.0" min="-2.0" max="2.0">
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.TransX] = ^{self}^
+              updateDateNodes()
+            </setterSting>
+          </property>
+          <property name ="translateY" type="float" default="0.0" min="-2.0" max="2.0">
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.TransY] = ^{self}^
+              updateDateNodes()
+            </setterSting>
+          </property>
+          <property name ="rotate" type="shortFloat" default="0.0" min="-360.0" max="360.0">
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Rotate] = math.rad(^{self}^)
+              updateDateNodes()
+            </setterSting>
+          </property>
+          <property name ="anchorType" type="enum" description="ANCHOR_TYPE" default="CENTER">
+              <enum>
+                  <element>CENTER</element>
+                  <element>LEFT_TOP</element>
+                  <element>TOP</element>
+                  <element>RIGHT_TOP</element>
+                  <element>LEFT</element>
+                  <element>RIGHT</element>
+                  <element>LEFT_BOTTOM</element>
+                  <element>BOTTOM</element>
+                  <element>RIGHT_BOTTOM</element>
+                  <element>MAX_ANCHOR_TYPE</element>
+              </enum>
+              <setterString>
+                g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Anchor] = KuruBackgroundImageNodeAnchorType.^{self}^
+                updateDateNodes()
+              </setterSting>
+          </property>
+          <property name ="rotationMode" type="enum" description="ROTATION_MODE" default="INVARIANT">
+              <enum>
+                  <element>INVARIANT</element>
+                  <element>VARIANT</element>
+                  <element>SHOW_ON_PORTRAIT_ONLY</element>
+                  <element>SHOW_ON_LANDSCAPE_ONLY</element>
+              </enum>
+              <setterString>
+                g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Variant] = StickerItemRotationMode.^{self}^
+                updateDateNodes()
+              </setterSting>
+          </property>
+          <property name ="fillMode" type="enum" description="FILL_MODE" default="FILL_HORIZONTAL">
+              <enum>
+                <element>FILL</element>
+                <element>FILL_ONE_TO_ONE</element>
+                <element>FILL_HORIZONTAL</element>
+                <element>FILL_VERTICAL</element>
+                <element>CENTER_INSIDE</element>
+                <element>FIT_CENTER</element>
+              </enum>
+              <setterString>
+                g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Fill] = KuruBackgroundImageNodeStretch.^{self}^
+                updateDateNodes()
+              </setterSting>
+          </property>
+          <property name ="ratio" type="enum" description="RATIO" default="ANY">
+              <enum>
+                  <element>ANY</element>
+                  <element>NINE_TO_SIXTEEN</element>
+                  <element>THREE_TO_FOUR</element>
+                  <element>ONE_TO_ONE</element>
+              </enum>
+              <setterString>
+                g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Ratio] = CameraConfigAspectRatio.^{self}^
+                updateDateNodes()
+              </setterSting>
+          </property>
+          <property name ="align" type="enum" description="ALIGN" default="Horizontal">
+              <enum>
+                  <element>Horizontal</element>
+                  <element>Vertical</element>
+              </enum>
+              <setterString>
+                g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Align] = AlignType.^{self}^
+                updateDateNodes()
+              </setterSting>
+          </property>
+          <property name ="blendMode" type=BlendMode>
+            <setterString>
+              g_configs[^{_getIndex(parentDataModel.dataModels, name)}^][PropertyType.Blend] = ^{self}^
+              updateDateNodes()
+            </setterSting>
+          </property>
+        </properties>
+        </genModel>
+    </genModels>
+</genRule>

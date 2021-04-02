@@ -1,0 +1,19 @@
+{
+  "result" : {
+    "distortionType" : 31,
+    "items" : [
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "resourceName" : "script.zip",
+        "resourceType" : "SEQUENCE"
+      }
+    ],
+    "modifiedDate" : 2,
+    "name" : "sticker_1516775028101",
+    "noFilterOnSticker" : true,
+    "renderByOrder" : true,
+    "resourceEncryption" : false,
+    "stickerId" : 99999
+  }
+}

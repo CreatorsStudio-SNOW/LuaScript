@@ -1,0 +1,1292 @@
+{
+	"require Property": {
+	  "prefix": "requireProperty",
+	  "body": "require \"property.lua\"",
+	  "description": "require Property"
+	},
+	"require KuruNodeKit": {
+	  "prefix": "requireKuruNodeKit",
+	  "body": "require \"KuruNodeKit/KuruNodeKit.lua\"",
+	  "description": "require KuruNodeKit"
+	},
+	"KuruNodeKit.createBGNode(path, stickerInfo)": {
+	  "prefix": "kk.bg",
+	  "body": "KuruNodeKit.createBGNode(\"$1\", {$2})$3",
+	  "description": "KuruNodeKit.createBGNode(path, stickerInfo)"
+	},
+	"KuruNodeKit.createBGNodeFromSampler(sampler, stickerInfo)": {
+	  "prefix": "kk.bgSampler",
+	  "body": "KuruNodeKit.createBGNodeFromSampler($1, {$2})$3",
+	  "description": "KuruNodeKit.createBGNodeFromSampler(sampler, stickerInfo)"
+	},
+	"KuruNodeKit.createStickerNode(path, stickerInfo)": {
+	  "prefix": "kk.sticker",
+	  "body": "KuruNodeKit.createStickerNode(\"$1\", {$2})$3",
+	  "description": "KuruNodeKit.createStickerNode(path, stickerInfo)"
+	},
+	"KuruNodeKit.createStickerNodeFromSampler(sampler, stickerInfo)": {
+	  "prefix": "kk.stickerSampler",
+	  "body": "KuruNodeKit.createStickerNodeFromSampler($1, {$2})$3",
+	  "description": "KuruNodeKit.createStickerNodeFromSampler(sampler, stickerInfo)"
+	},
+	"KuruNodeKit.createClearNode(color, isDepthBufferClear)": {
+	  "prefix": "kk.clear",
+	  "body": "KuruNodeKit.createClearNode(Vector4.create($1, $2, $3, $4), true)$5",
+	  "description": "KuruNodeKit.createClearNode(color, isDepthBufferClear)"
+	},
+	"KuruNodeKit.createBuiltInDistortionNode()": {
+	  "prefix": "kk.distortion",
+	  "body": "KuruNodeKit.createBuiltInDistortionNode()$1",
+	  "description": "KuruNodeKit.createBuiltInDistortionNode()"
+	},
+	"KuruNodeKit.createSnapshotNode(scale)": {
+	  "prefix": "kk.snap",
+	  "body": "KuruNodeKit.createSnapshotNode($1)$2",
+	  "description": "KuruNodeKit.createSnapshotNode(scale)"
+	},
+	"KuruNodeKit.createMaskNode(sourceSampler, maskFile)": {
+	  "prefix": "kk.mask",
+	  "body": "KuruNodeKit.createMaskNode($1,\"$2\")$3",
+	  "description": "KuruNodeKit.createMaskNode(sourceSampler, maskFile)"
+	},
+	"KuruNodeKit.createMaskNodeFromSampler(sourceSampler, maskSampler)": {
+	  "prefix": "kk.maskSampler",
+	  "body": "KuruNodeKit.createMaskNodeFromSampler($1,$2)",
+	  "description": "KuruNodeKit.createMaskNodeFromSampler(sourceSampler, maskSampler)"
+	},
+	"KuruNodeKit.createSkinExNode(path, stickerInfo)": {
+	  "prefix": "kk.skin",
+	  "body": "KuruNodeKit.createSkinExNode(\"$1\", {$2})$3",
+	  "description": "KuruNodeKit.createSkinExNode(path, stickerInfo)"
+	},
+	"KuruNodeKit.createSkinExNodeFromSampler(path, stickerInfo)": {
+	  "prefix": "kk.skinSampler",
+	  "body": "KuruNodeKit.createSkinExNodeFromSampler($1, {$2})$3",
+	  "description": "KuruNodeKit.createSkinExNodeFromSampler(path, stickerInfo)"
+	},
+	"KuruNodeKit.createSegmentationNode(sourceSampler, stickerInfo)": {
+	  "prefix": "kk.seg",
+	  "body": "KuruNodeKit.createSegmentationNode($1, {$2})",
+	  "description": "KuruNodeKit.createSegmentationNode(sourceSampler, stickerInfo)"
+	},
+	"KuruNodeKit.createHeadshotNode(maskPath, sourceSampler)": {
+	  "prefix": "kk.headshot",
+	  "body": "KuruNodeKit.createHeadshotNode(\"$1\", $2)",
+	  "description": "KuruNodeKit.createHeadshotNode(maskPath, sourceSampler)"
+	},
+	"KuruNodeKit.createFaceModelNode(gpbPath)": {
+	  "prefix": "kk.3d",
+	  "body": "KuruNodeKit.createFaceModelNode(\"$1\")$2",
+	  "description": "KuruNodeKit.createFaceModelNode(gpbPath)"
+	},
+	"KuruNodeKit.createFaceFittingNode(gpbPath, stickerInfo)": {
+	  "prefix": "kk.fitting",
+	  "body": "KuruNodeKit.createFaceFittingNode(\"$1\", $2)$3",
+	  "description": "KuruNodeKit.createFaceFittingNode(gpbPath, stickerInfo)"
+	},
+	"KuruNodeKit.createPassthroughWithMatrix(sampler, matrix)": {
+	  "prefix": "kk.pass",
+	  "body": "KuruNodeKit.createPassthroughWithMatrix($1, $2)$3",
+	  "description": "KuruNodeKit.createPassthroughWithMatrix(sampler, matrix)"
+	},
+	"KuruNodeKit.createShaderNode(vert, frag)": {
+	  "prefix": "kk.shader",
+	  "body": "KuruNodeKit.createShaderNode($1, $2)$3",
+	  "description": "KuruNodeKit.createShaderNode(vert, frag)"
+	},
+	"KuruNodeKit.createFragmentShaderNode(frag)": {
+	  "prefix": "kk.fragmentShader",
+	  "body": "KuruNodeKit.createFragmentShaderNode($1)$2",
+	  "description": "KuruNodeKit.createFragmentShaderNode(frag)"
+	},
+	"KuruNodeKit.createUVFilterNode(uvFile, sourceSampler)": {
+	  "prefix": "kk.uvFilter",
+	  "body": "KuruNodeKit.createUVFilterNode(\"$1\", $2)$3",
+	  "description": "KuruNodeKit.createUVFilterNode(uvFile, sourceSampler)"
+	},
+	"KuruNodeKit.createGaussianBlurNodeDrawable(strength)": {
+	  "prefix": "kk.gaussianBlur",
+	  "body": "KuruNodeKit.createGaussianBlurNodeDrawable($1)$2",
+	  "description": "KuruNodeKit.createGaussianBlurNodeDrawable(strength)"
+	},
+	"KuruNodeKit.createTextureSampler(path)": {
+	  "prefix": "kk.textureSampler",
+	  "body": "KuruNodeKit.createTextureSampler(\"$1\")$2",
+	  "description": "KuruNodeKit.createTextureSampler(path)"
+	},
+	"KuruNodeKit.createAnimationSampler(path, fps, repeatCount)": {
+	  "prefix": "kk.animationSampler",
+	  "body": "KuruNodeKit.createAnimationSampler(\"$1\", 20, 0)$2",
+	  "description": "KuruNodeKit.createAnimationSampler(path, fps, repeatCount)"
+	},
+	"KuruFrameBufferNode.create()": {
+	  "prefix": "fbCreate",
+	  "body": "KuruFrameBufferNode.create()$1",
+	  "description": "KuruFrameBufferNode.create()"
+	},
+	"KuruFrameBufferNode.createWithSize(width, height)": {
+	  "prefix": "fbCrSize",
+	  "body": "KuruFrameBufferNode.createWithSize($1, $2)$3",
+	  "description": "KuruFrameBufferNode.createWithSize(width, height)"
+	},
+	"KuruFrameBufferNode.createWithScale(scaleX, scaleY)": {
+	  "prefix": "fbCrScale",
+	  "body": "KuruFrameBufferNode.createWithScale($1, $2)$3",
+	  "description": "KuruFrameBufferNode.createWithScale(scaleX, scaleY)"
+	},
+	"frameBufferNode:setRenderPassthrough(true)": {
+	  "prefix": "fbRenderPassthrough",
+	  "body": "$1:setRenderPassthrough(true)$2",
+	  "description": "frameBufferNode:setRenderPassthrough(true)"
+	},
+	"KuruNodeKit.getRotateAnchorType(anchorType)": {
+	  "prefix": "kk.rotateAnchorType",
+	  "body": "KuruNodeKit.getRotateAnchorType($1)$2",
+	  "description": "KuruNodeKit.getRotateAnchorType(anchorType)"
+	},
+	"KuruNodeKit.aspectRatioType()": {
+	  "prefix": "kk.aspectRatioType",
+	  "body": "KuruNodeKit.aspectRatioType()$1",
+	  "description": "KuruNodeKit.aspectRatioType()"
+	},
+	"KuruTextNode for debug": {
+	  "prefix": "kk.text",
+	  "body": "g_textNode = KuruNodeKit.addNodeAndRelease(scene, KuruTextNode.createDefault())\n \n -- move these codes to frameReady\n g_textNode:moveTo(0.02, 0.5)\n g_textNode:addLine(string.format(\"$1 = %s\", $1))$2\n -- move these codes to frameReady\n",
+	  "description": "KuruTextNode for debug"
+	},
+	"KuruLookUpTableFilterNode.create(path, reverse, intensity)": {
+	  "prefix": "kk.lut",
+	  "body": "KuruLookUpTableFilterNode.create(BASE_DIRECTORY .. \"$1\", true, 1.0)$2",
+	  "description": "KuruLookUpTableFilterNode.create(path, reverse, intensity)"
+	},
+	"KuruNodeKit.config.Background": {
+	  "prefix": "kc.bg",
+	  "body": "{\n \tdrawType = DrawType.BACKGROUND,\n \tresourceName = \"$1\",\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.Background"
+	},
+	"KuruNodeKit.config.Sticker": {
+	  "prefix": "kc.sticker",
+	  "body": "{\n \tdrawType = DrawType.FACE,\n \tresourceName = \"$1\",\n \tlocationType = StickerItemLocationType.FACE,\n \tanchorType = StickerItemAnchorType.CENTER,\n \tscale = 1.0,\n \ttranslateX = 0.0,\n \ttranslateY = 0.0,\n \tfaceOffsetZ = 0.0,\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.Sticker"
+	},
+	"KuruNodeKit.config.Snapshot": {
+	  "prefix": "kc.snap",
+	  "body": "{\n \tdrawType = DrawType.SNAPSHOT,\n \tid = \"$1\",\n},$2\n",
+	  "description": "KuruNodeKit.config.Snapshot"
+	},
+	"KuruNodeKit.config.Clear": {
+	  "prefix": "kc.clear",
+	  "body": "{\n \tdrawType = DrawType.CLEAR,\n \tcolor = Vector4.create($1, $2, $3, $4),\n},$5\n",
+	  "description": "KuruNodeKit.config.Clear"
+	},
+	"KuruNodeKit.config.Segmentation": {
+	  "prefix": "kc.seg",
+	  "body": "{\n \tdrawType = DrawType.SEGMENTATION,\n \tid = \"$1\",\n},$2\n",
+	  "description": "KuruNodeKit.config.Segmentation"
+	},
+	"KuruNodeKit.config.SegmentationSrc": {
+	  "prefix": "kc.segSrc",
+	  "body": "{\n \tdrawType = DrawType.SEGMENTATION_SRC,\n \tid = \"$1\",\n},$2\n",
+	  "description": "KuruNodeKit.config.SegmentationSrc"
+	},
+	"KuruNodeKit.config.Headshot": {
+	  "prefix": "kc.headshot",
+	  "body": "{\n \tdrawType = DrawType.HEADSHOT,\n \tmaskFilePath = \"$1\",\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.Headshot"
+	},
+	"KuruNodeKit.config.FaceModel": {
+	  "prefix": "kc.3d",
+	  "body": "{\n \tdrawType = DrawType.FACEMODEL,\n \tresourceName = \"$1\",\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.FaceModel"
+	},
+	"KuruNodeKit.config.Distortion": {
+	  "prefix": "kc.distortion",
+	  "body": "{\n \tdrawType = DrawType.DISTORTION,\n \tid = \"$1\",\n},$2\n",
+	  "description": "KuruNodeKit.config.Distortion"
+	},
+	"KuruNodeKit.config.Shader": {
+	  "prefix": "kc.shader",
+	  "body": "{\n \tdrawType = DrawType.SHADER,\n \tvertPath = \"$1\",\n \tfragPath = \"$2\",\n \tid = \"$3\",\n},$4\n",
+	  "description": "KuruNodeKit.config.Shader"
+	},
+	"KuruNodeKit.config.FragmentShader": {
+	  "prefix": "kc.fragmentshader",
+	  "body": "{\n \tdrawType = DrawType.FRAGMENT_SHADER,\n \tpath = \"$1\",\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.FragmentShader"
+	},
+	"KuruNodeKit.config.Skin": {
+	  "prefix": "kc.Skin",
+	  "body": "{\n \tdrawType = DrawType.SKIN,\n \tresourceName = \"$1\",\n \tid = \"$2\",\n},$3\n",
+	  "description": "KuruNodeKit.config.Skin"
+	},
+	"KuruNodeKit.config.GaussianBlur": {
+	  "prefix": "kc.GaussianBlur",
+	  "body": "{\n \tdrawType = DrawType.GAUSSIAN_BLUR,\n \tid = \"$1\",\n},$2\n",
+	  "description": "KuruNodeKit.config.GaussianBlur"
+	},
+	"CastNode.STICKER": {
+	  "prefix": "castNodeSticker",
+	  "body": "KaleStickerNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.STICKER"
+	},
+	"CastNode.BG": {
+	  "prefix": "castNodeBg",
+	  "body": "KuruBackgroundImageNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.BG"
+	},
+	"CastNode.SNAPSHOT": {
+	  "prefix": "castNodeSnapshot",
+	  "body": "KuruSnapshotNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.SNAPSHOT"
+	},
+	"CastNode.DISTORTION": {
+	  "prefix": "castNodeDistortion",
+	  "body": "KaleFaceDistortionNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.DISTORTION"
+	},
+	"CastNode.SKIN": {
+	  "prefix": "castNodeSkin",
+	  "body": "KaleFaceSkinNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.SKIN"
+	},
+	"CastNode.FACEMODEL": {
+	  "prefix": "castNodeFaceModel",
+	  "body": "KaleFaceModelNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.FACEMODEL"
+	},
+	"CastNode.SEGMENTATION": {
+	  "prefix": "castNodeSegmentation",
+	  "body": "KuruSegmentationNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.SEGMENTATION"
+	},
+	"CastNode.HEADSHOT": {
+	  "prefix": "castNodeHeadshot",
+	  "body": "KuruHeadshotNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.HEADSHOT"
+	},
+	"CastNode.SHADER": {
+	  "prefix": "castNodeShader",
+	  "body": "KuruShaderFilterNode.cast(findNode(scene, \"$1\"))$2",
+	  "description": "CastNode.SHADER"
+	},
+	"Set App Slider Value": {
+	  "prefix": "cf.setSliderValue",
+	  "body": "eventExtension = KuruEventExtension.cast(KuruEngine.getInstance():getExtension(\"KuruEvent\"))\n eventExtension:postSimpleEventToApp(\"SetEventToApp\", \"{\\\\\"name\\\\\" : \\\\\"updatePropertyConfig\\\\\", \\\\\"key\\\\\" : \\\\\"stickerSliderValue\\\\\", \\\\\"value\\\\\" : \\\\\"$1num\\\\\"}\")\n",
+	  "description": "Set App Slider Value"
+	},
+	"SceneRenderConfig.isPreviewMode": {
+	  "prefix": "cf.isRenderModePreview",
+	  "body": "SceneRenderConfig.instance():isRenderModePreview()$1",
+	  "description": "SceneRenderConfig.isPreviewMode"
+	},
+	"SceneRenderConfig.isSnapshotMode": {
+	  "prefix": "cf.isRenderModeSnapshot",
+	  "body": "SceneRenderConfig.instance():isRenderModeSnapshot()$1",
+	  "description": "SceneRenderConfig.isSnapshotMode"
+	},
+	"SceneRenderConfig.isVideoMode": {
+	  "prefix": "cf.isRenderModeVideo",
+	  "body": "SceneRenderConfig.instance():isRenderModeVideo()$1",
+	  "description": "SceneRenderConfig.isVideoMode"
+	},
+	"CameraConfig.isPostEdit": {
+	  "prefix": "cf.isPostEdit",
+	  "body": "CameraConfig.instance():isPostEdit()$1",
+	  "description": "CameraConfig.isPostEdit"
+	},
+	"isAppVersionOver": {
+	  "prefix": "cf.isVersionOver",
+	  "body": "KuruConfig.instance():isVersionOver($1, $2, $3)$4",
+	  "description": "isAppVersionOver"
+	},
+	"Property_getNum": {
+	  "prefix": "prNum",
+	  "body": "property_getNum(\"$1\")$2",
+	  "description": "Property_getNum"
+	},
+	"PropertyConfig.Num": {
+	  "prefix": "cf_num",
+	  "body": "PropertyConfig.instance():getNumber(\"$1\", $2)$3",
+	  "description": "PropertyConfig.Num"
+	},
+	"PropertyConfig.stickerSliderValue": {
+	  "prefix": "cf.stickerSliderValue",
+	  "body": "PropertyConfig.instance():getNumber(\"stickerSliderValue\", $1)$2",
+	  "description": "PropertyConfig.stickerSliderValue"
+	},
+	"PropertyConfig.stickerSliderValue_kirakira": {
+	  "prefix": "cf.stickerSliderValue_kirakira",
+	  "body": "PropertyConfig.instance():getNumber(\"stickerSliderValue_kirakira\", $1)$2",
+	  "description": "PropertyConfig.stickerSliderValue_kirakira"
+	},
+	"PropertyConfig.stickerSliderValue_effect": {
+	  "prefix": "cf.stickerSliderValue_effect",
+	  "body": "PropertyConfig.instance():getNumber(\"stickerSliderValue_effect\", $1)$2",
+	  "description": "PropertyConfig.stickerSliderValue_effect"
+	},
+	"PropertyConfig.stickerSliderValue_free": {
+	  "prefix": "cf.stickerSliderValue_free",
+	  "body": "PropertyConfig.instance():getNumber(\"stickerSliderValue_free\", $1)$2",
+	  "description": "PropertyConfig.stickerSliderValue_free"
+	},
+	"PropertyConfig.specialFilterIntensity": {
+	  "prefix": "cf.specialFilterIntensity",
+	  "body": "PropertyConfig.instance():getNumber(\"specialFilterIntensity\", $1)$2",
+	  "description": "PropertyConfig.specialFilterIntensity"
+	},
+	"PropertyConfig.makeupSliderValue": {
+	  "prefix": "cf.makeupSliderValue",
+	  "body": "PropertyConfig.instance():getNumber(\"makeupSliderValue\", $1)$2",
+	  "description": "PropertyConfig.makeupSliderValue"
+	},
+	"PropertyConfig.accessorySliderValue": {
+	  "prefix": "cf.accessorySliderValue",
+	  "body": "PropertyConfig.instance():getNumber(\"accessorySliderValue\", $1)$2",
+	  "description": "PropertyConfig.accessorySliderValue"
+	},
+	"EditorConfig.isPreviewInputCamera": {
+	  "prefix": "cf.isPreviewInputCamera",
+	  "body": "EditorConfig.instance():isPreviewInputCamera()",
+	  "description": "EditorConfig.isPreviewInputCamera"
+	},
+	"EditorConfig.isPreviewInputModel": {
+	  "prefix": "cf.isPreviewInputModel",
+	  "body": "EditorConfig.instance():isPreviewInputModel()",
+	  "description": "EditorConfig.isPreviewInputModel"
+	},
+	"EditorConfig.isFitting": {
+	  "prefix": "cf.isFitting",
+	  "body": "EditorConfig.instance():isFitting()",
+	  "description": "EditorConfig.isFitting"
+	},
+	"EditorConfig.isAccessory": {
+	  "prefix": "cf.isAccessory",
+	  "body": "EditorConfig.instance():isAccessory()",
+	  "description": "EditorConfig.isAccessory"
+	},
+	"EditorConfig.isPin": {
+	  "prefix": "cf.isPin",
+	  "body": "EditorConfig.instance():isPin()",
+	  "description": "EditorConfig.isPin"
+	},
+	"EditorConfig.isFloating": {
+	  "prefix": "cf.isFloating",
+	  "body": "EditorConfig.instance():isFloating()",
+	  "description": "EditorConfig.isFloating"
+	},
+	"EditorConfig.isMakeup": {
+	  "prefix": "cf.isMakeup",
+	  "body": "EditorConfig.instance():isMakeup()",
+	  "description": "EditorConfig.isMakeup"
+	},
+	"EditorConfig.isEffect": {
+	  "prefix": "cf.isEffect",
+	  "body": "EditorConfig.instance():isEffect()",
+	  "description": "EditorConfig.isEffect"
+	},
+	"EditorConfig.isDistortion": {
+	  "prefix": "cf.isDistortion",
+	  "body": "EditorConfig.instance():isDistortion()",
+	  "description": "EditorConfig.isDistortion"
+	},
+	"StickerItem.faceOffset": {
+	  "prefix": "si.faceOffset",
+	  "body": "getStickerItem():getConfig().faceOffset = Vector3.create($1, $2, $3)$4",
+	  "description": "StickerItem.faceOffset"
+	},
+	"StickerItem.billboard": {
+	  "prefix": "si.billboard",
+	  "body": "getStickerItem():getConfig().billboard = true",
+	  "description": "StickerItem.billboard"
+	},
+	"StickerItem.useDeviceOrientation": {
+	  "prefix": "si.useDeviceOrientation",
+	  "body": "getStickerItem():getConfig().useDeviceOrientation = true",
+	  "description": "StickerItem.useDeviceOrientation"
+	},
+	"StickerItem.alpha": {
+	  "prefix": "si.alpha",
+	  "body": "getStickerItem().alpha = 1.0",
+	  "description": "StickerItem.alpha"
+	},
+	"StickerItem.scaleXYZ": {
+	  "prefix": "si.scaleXYZ",
+	  "body": "getStickerItem().scaleXYZ = Vector3.create($1, $2, $3)$4",
+	  "description": "StickerItem.scaleXYZ"
+	},
+	"StickerItem.translateXYZ": {
+	  "prefix": "si.translateXYZ",
+	  "body": "getStickerItem().translateXYZ = Vector3.create($1, $2, $3)$4",
+	  "description": "StickerItem.translateXYZ"
+	},
+	"StickerItem.rotateXYZ": {
+	  "prefix": "si.rotateXYZ",
+	  "body": "getStickerItem().rotateXYZ = Vector3.create($1, $2, $3)$4",
+	  "description": "StickerItem.rotateXYZ"
+	},
+	"KuruFaceDetectorExtension": {
+	  "prefix": "KuruFaceDetectorExtension",
+	  "body": "KuruFaceDetectorExtension.cast(KuruEngine.getInstance():getExtension(\"KuruFaceDetector\"))",
+	  "description": "KuruFaceDetectorExtension"
+	},
+	"KuruTouchExtension": {
+	  "prefix": "KuruTouchExtension",
+	  "body": "kuruTouch = KuruTouchExtension.cast(KuruEngine.getInstance():getExtension(\"KuruTouch\"))\n kuruTouch:getTouchDownEvent():addEventHandler(onTouchDown)\n kuruTouch:getTouchUpEvent():addEventHandler(onTouchUp)\n kuruTouch:getTouchMoveEvent():addEventHandler(onTouchMove)\n \n -- move these codes to finalize function\n kuruTouch:getTouchDownEvent():removeEventHandler(onTouchDown)\n kuruTouch:getTouchUpEvent():removeEventHandler(onTouchUp)\n kuruTouch:getTouchMoveEvent():removeEventHandler(onTouchMove)\n -- move these codes to finalize function\n",
+	  "description": "KuruTouchExtension"
+	},
+	"KuruEventExtension": {
+	  "prefix": "EventExtension",
+	  "body": "KuruEventExtension.cast(KuruEngine.getInstance():getExtension(\"KuruEvent\"))",
+	  "description": "KuruEventExtension"
+	},
+	"KuruSegmentationExtension": {
+		"prefix": "SegmentationExtension",
+		"body": "g_segExtension = KuruSegmentationExtension.cast(KuruEngine.getInstance():getExtension(\"KuruSegmentation\"))\ng_segType = $1 -- fill seg type \nscene:activateCountType(g_segExtension:getCountType(g_segType))\nlocal sampler = g_segExtension:getSampler(g_segType) -- move to frameReady",
+		"description": "KuruSegmentationExtension"
+	  },
+	"EngineStatus.BLEND_SHAPE": {
+	  "prefix": "CountType.BLEND_SHAPE",
+	  "body": "scene:activateCountType(EngineStatusCountType.BLEND_SHAPE)",
+	  "description": "EngineStatus.BLEND_SHAPE"
+	},
+	"EngineStatus.SEGMENTATION": {
+	  "prefix": "CountType.SEGMENTATION",
+	  "body": "scene:activateCountType(EngineStatusCountType.SEGMENTATION)",
+	  "description": "EngineStatus.SEGMENTATION"
+	},
+	"EngineStatus.EYEBALL": {
+	  "prefix": "CountType.EYEBALL",
+	  "body": "scene:activateCountType(EngineStatusCountType.EYEBALL)",
+	  "description": "EngineStatus.EYEBALL"
+	},
+	"EngineStatus.EXTRA_FACE": {
+	  "prefix": "CountType.EXTRA_FACE",
+	  "body": "scene:activateCountType(EngineStatusCountType.EXTRA_FACE)",
+	  "description": "EngineStatus.EXTRA_FACE"
+	},
+	"EngineStatus.AR_3D": {
+	  "prefix": "CountType.AR_3D",
+	  "body": "scene:activateCountType(EngineStatusCountType.AR_3D)",
+	  "description": "EngineStatus.AR_3D"
+	},
+	"EngineStatus.BOKEH_BLUR": {
+	  "prefix": "CountType.BOKEH_BLUR",
+	  "body": "scene:activateCountType(EngineStatusCountType.BOKEH_BLUR)",
+	  "description": "EngineStatus.BOKEH_BLUR"
+	},
+	"EngineStatus.BODY": {
+	  "prefix": "CountType.BODY",
+	  "body": "scene:activateCountType(EngineStatusCountType.BODY)",
+	  "description": "EngineStatus.BODY"
+	},
+	"EngineStatus.HAND": {
+	  "prefix": "CountType.HAND",
+	  "body": "scene:activateCountType(EngineStatusCountType.HAND)",
+	  "description": "EngineStatus.HAND"
+	},
+	"EngineStatus.ACCURATE_FACE_POSE": {
+	  "prefix": "CountType.ACCURATE_FACE_POSE",
+	  "body": "scene:activateCountType(EngineStatusCountType.ACCURATE_FACE_POSE)",
+	  "description": "EngineStatus.ACCURATE_FACE_POSE"
+	},
+	"EngineStatus.USE_GYRO": {
+	  "prefix": "CountType.USE_GYRO",
+	  "body": "scene:activateCountType(EngineStatusCountType.USE_GYRO)",
+	  "description": "EngineStatus.USE_GYRO"
+	},
+	"EngineStatus.HAIR_SEGMENTATION": {
+	  "prefix": "CountType.HAIR_SEGMENTATION",
+	  "body": "scene:activateCountType(EngineStatusCountType.HAIR_SEGMENTATION)",
+	  "description": "EngineStatus.HAIR_SEGMENTATION"
+	},
+	"EngineStatus.FACE_ATTRIBUTE": {
+	  "prefix": "CountType.FACE_ATTRIBUTE",
+	  "body": "scene:activateCountType(EngineStatusCountType.FACE_ATTRIBUTE)",
+	  "description": "EngineStatus.FACE_ATTRIBUTE"
+	},
+	"EngineStatus.FACE_ATTRIBUTE_EX": {
+	  "prefix": "CountType.FACE_ATTRIBUTE_EX",
+	  "body": "scene:activateCountType(EngineStatusCountType.FACE_ATTRIBUTE_EX)\nscene:getInternalScene():setFaceAttributeDetection(true)\n -- 매 프레임 체크하는 경우 frameReady에 아래 코드 추가\nkuruFace.faceAttributeDirty = true",
+	  "description": "EngineStatus.FACE_ATTRIBUTE_EX"
+	},
+	"EngineStatus.MOUTH_AH": {
+	  "prefix": "CountType.MOUTH_AH",
+	  "body": "scene:activateCountType(EngineStatusCountType.MOUTH_AH)",
+	  "description": "EngineStatus.MOUTH_AH"
+	},
+	"EngineStatus.HEAD_PITCH": {
+	  "prefix": "CountType.HEAD_PITCH",
+	  "body": "scene:activateCountType(EngineStatusCountType.HEAD_PITCH)",
+	  "description": "EngineStatus.HEAD_PITCH"
+	},
+	"EngineStatus.BROW_JUMP": {
+	  "prefix": "CountType.BROW_JUMP",
+	  "body": "scene:activateCountType(EngineStatusCountType.BROW_JUMP)",
+	  "description": "EngineStatus.BROW_JUMP"
+	},
+	"EngineStatus.EYE_BLINK": {
+	  "prefix": "CountType.EYE_BLINK",
+	  "body": "scene:activateCountType(EngineStatusCountType.EYE_BLINK)",
+	  "description": "EngineStatus.EYE_BLINK"
+	},
+	"EngineStatus.ENABLE_VIEW_TRANSFORM": {
+	  "prefix": "CountType.ENABLE_VIEW_TRANSFORM",
+	  "body": "scene:activateCountType(EngineStatusCountType.ENABLE_VIEW_TRANSFORM)",
+	  "description": "EngineStatus.ENABLE_VIEW_TRANSFORM"
+	},
+	"EngineStatus.MAKE_UP": {
+	  "prefix": "CountType.MAKE_UP",
+	  "body": "scene:activateCountType(EngineStatusCountType.MAKE_UP)",
+	  "description": "EngineStatus.MAKE_UP"
+	},
+	"EngineStatus.DISABLE_BEAUTY_OPTIMIZE": {
+	  "prefix": "CountType.DISABLE_BEAUTY_OPTIMIZE",
+	  "body": "scene:activateCountType(EngineStatusCountType.DISABLE_BEAUTY_OPTIMIZE)",
+	  "description": "EngineStatus.DISABLE_BEAUTY_OPTIMIZE"
+	},
+	"EngineStatus.TOUCH": {
+	  "prefix": "CountType.TOUCH",
+	  "body": "scene:activateCountType(EngineStatusCountType.TOUCH)",
+	  "description": "EngineStatus.TOUCH"
+	},
+	"EngineStatus.PHYSICS": {
+	  "prefix": "CountType.PHYSICS",
+	  "body": "scene:activateCountType(EngineStatusCountType.PHYSICS)",
+	  "description": "EngineStatus.PHYSICS"
+	},
+	"EngineStatus.FACE_FITTING": {
+	  "prefix": "CountType.FACE_FITTING",
+	  "body": "scene:activateCountType(EngineStatusCountType.FACE_FITTING)",
+	  "description": "EngineStatus.FACE_FITTING"
+	},
+	"EngineStatus.FACE_FITTING_NORMAL": {
+	  "prefix": "CountType.FACE_FITTING_NORMAL",
+	  "body": "scene:activateCountType(EngineStatusCountType.FACE_FITTING_NORMAL)",
+	  "description": "EngineStatus.FACE_FITTING_NORMAL"
+	},
+	"EngineStatus.LIP_240": {
+	  "prefix": "CountType.LIP_240",
+	  "body": "scene:activateCountType(EngineStatusCountType.LIP_240)",
+	  "description": "EngineStatus.LIP_240"
+	},
+	"EngineStatus.HAND_SKELETON_2D": {
+	  "prefix": "CountType.HAND_SKELETON_2D",
+	  "body": "scene:activateCountType(EngineStatusCountType.HAND_SKELETON_2D)",
+	  "description": "EngineStatus.HAND_SKELETON_2D"
+	},
+	"EngineStatus.CAT_FACE": {
+	  "prefix": "CountType.CAT_FACE",
+	  "body": "scene:activateCountType(EngineStatusCountType.CAT_FACE)",
+	  "description": "EngineStatus.CAT_FACE"
+	},
+	"EngineStatus.DOMINANT_COLOR": {
+	  "prefix": "CountType.DOMINANT_COLOR",
+	  "body": "scene:activateCountType(EngineStatusCountType.DOMINANT_COLOR)",
+	  "description": "EngineStatus.DOMINANT_COLOR"
+	},
+	"EngineStatus.MEAN_LUMINANCE": {
+	  "prefix": "CountType.MEAN_LUMINANCE",
+	  "body": "scene:activateCountType(EngineStatusCountType.MEAN_LUMINANCE)",
+	  "description": "EngineStatus.MEAN_LUMINANCE"
+	},
+	"EngineStatus.FACE_FITTING_MOUTH_MODEL": {
+	  "prefix": "CountType.FACE_FITTING_MOUTH_MODEL",
+	  "body": "scene:activateCountType(EngineStatusCountType.FACE_FITTING_MOUTH_MODEL)",
+	  "description": "EngineStatus.FACE_FITTING_MOUTH_MODEL"
+	},
+	"EngineStatus.MULTIPART_SEGMENTATION": {
+	  "prefix": "CountType.MULTIPART_SEGMENTATION",
+	  "body": "scene:activateCountType(EngineStatusCountType.MULTIPART_SEGMENTATION)",
+	  "description": "EngineStatus.MULTIPART_SEGMENTATION"
+	},
+	"EngineStatus.ANIMATION": {
+	  "prefix": "CountType.ANIMATION",
+	  "body": "scene:activateCountType(EngineStatusCountType.ANIMATION)",
+	  "description": "EngineStatus.ANIMATION"
+	},
+	"EngineStatus.STICKER_MANAGER": {
+	  "prefix": "CountType.STICKER_MANAGER",
+	  "body": "scene:activateCountType(EngineStatusCountType.STICKER_MANAGER)",
+	  "description": "EngineStatus.STICKER_MANAGER"
+	},
+	"EngineStatus.PREVIEW_STICKER": {
+	  "prefix": "CountType.PREVIEW_STICKER",
+	  "body": "scene:activateCountType(EngineStatusCountType.PREVIEW_STICKER)",
+	  "description": "EngineStatus.PREVIEW_STICKER"
+	},
+	"EngineStatus.EXTRA_FACE_551": {
+	  "prefix": "CountType.EXTRA_FACE_551",
+	  "body": "scene:activateCountType(EngineStatusCountType.EXTRA_FACE_551)",
+	  "description": "EngineStatus.EXTRA_FACE_551"
+	},
+	"EngineStatus.MAX_COUNT_TYPE": {
+	  "prefix": "CountType.MAX_COUNT_TYPE",
+	  "body": "scene:activateCountType(EngineStatusCountType.MAX_COUNT_TYPE)",
+	  "description": "EngineStatus.MAX_COUNT_TYPE"
+	},
+	"EngineStatus.SEG_SKIN": {
+	  "prefix": "CountType.SEG_SKIN",
+	  "body": "scene:activateCountType(EngineStatusCountType.SEG_SKIN)",
+	  "description": "EngineStatus.SEG_SKIN"
+	},
+	"EngineStatus.SEG_HEAD": {
+	  "prefix": "CountType.SEG_HEAD",
+	  "body": "scene:activateCountType(EngineStatusCountType.SEG_HEAD)",
+	  "description": "EngineStatus.SEG_HEAD"
+	},
+	"EngineStatus.SEG_LIP": {
+	  "prefix": "CountType.SEG_LIP",
+	  "body": "scene:activateCountType(EngineStatusCountType.SEG_LIP)",
+	  "description": "EngineStatus.SEG_LIP"
+	},
+	"StickerItemAnchorType.CENTER": {
+	  "prefix": "AnchorType.CENTER",
+	  "body": "StickerItemAnchorType.CENTER",
+	  "description": "StickerItemAnchorType.CENTER"
+	},
+	"StickerItemAnchorType.LEFT": {
+	  "prefix": "AnchorType.LEFT",
+	  "body": "StickerItemAnchorType.LEFT",
+	  "description": "StickerItemAnchorType.LEFT"
+	},
+	"StickerItemAnchorType.RIGHT": {
+	  "prefix": "AnchorType.RIGHT",
+	  "body": "StickerItemAnchorType.RIGHT",
+	  "description": "StickerItemAnchorType.RIGHT"
+	},
+	"StickerItemAnchorType.TOP": {
+	  "prefix": "AnchorType.TOP",
+	  "body": "StickerItemAnchorType.TOP",
+	  "description": "StickerItemAnchorType.TOP"
+	},
+	"StickerItemAnchorType.BOTTOM": {
+	  "prefix": "AnchorType.BOTTOM",
+	  "body": "StickerItemAnchorType.BOTTOM",
+	  "description": "StickerItemAnchorType.BOTTOM"
+	},
+	"StickerItemAnchorType.LEFT_TOP": {
+	  "prefix": "AnchorType.LEFT_TOP",
+	  "body": "StickerItemAnchorType.LEFT_TOP",
+	  "description": "StickerItemAnchorType.LEFT_TOP"
+	},
+	"StickerItemAnchorType.LEFT_BOTTOM": {
+	  "prefix": "AnchorType.LEFT_BOTTOM",
+	  "body": "StickerItemAnchorType.LEFT_BOTTOM",
+	  "description": "StickerItemAnchorType.LEFT_BOTTOM"
+	},
+	"StickerItemAnchorType.RIGHT_TOP": {
+	  "prefix": "AnchorType.RIGHT_TOP",
+	  "body": "StickerItemAnchorType.RIGHT_TOP",
+	  "description": "StickerItemAnchorType.RIGHT_TOP"
+	},
+	"StickerItemAnchorType.RIGHT_BOTTOM": {
+	  "prefix": "AnchorType.RIGHT_BOTTOM",
+	  "body": "StickerItemAnchorType.RIGHT_BOTTOM",
+	  "description": "StickerItemAnchorType.RIGHT_BOTTOM"
+	},
+	"StickerItemLocationType.FACE": {
+	  "prefix": "LocationType.FACE",
+	  "body": "StickerItemLocationType.FACE",
+	  "description": "StickerItemLocationType.FACE"
+	},
+	"StickerItemLocationType.EYE_RT": {
+	  "prefix": "LocationType.EYE_RT",
+	  "body": "StickerItemLocationType.EYE_RT",
+	  "description": "StickerItemLocationType.EYE_RT"
+	},
+	"StickerItemLocationType.EYE_RB": {
+	  "prefix": "LocationType.EYE_RB",
+	  "body": "StickerItemLocationType.EYE_RB",
+	  "description": "StickerItemLocationType.EYE_RB"
+	},
+	"StickerItemLocationType.EYE_LT": {
+	  "prefix": "LocationType.EYE_LT",
+	  "body": "StickerItemLocationType.EYE_LT",
+	  "description": "StickerItemLocationType.EYE_LT"
+	},
+	"StickerItemLocationType.EYE_LB": {
+	  "prefix": "LocationType.EYE_LB",
+	  "body": "StickerItemLocationType.EYE_LB",
+	  "description": "StickerItemLocationType.EYE_LB"
+	},
+	"StickerItemLocationType.NOSE": {
+	  "prefix": "LocationType.NOSE",
+	  "body": "StickerItemLocationType.NOSE",
+	  "description": "StickerItemLocationType.NOSE"
+	},
+	"StickerItemLocationType.NOSE_B": {
+	  "prefix": "LocationType.NOSE_B",
+	  "body": "StickerItemLocationType.NOSE_B",
+	  "description": "StickerItemLocationType.NOSE_B"
+	},
+	"StickerItemLocationType.NOSE_R": {
+	  "prefix": "LocationType.NOSE_R",
+	  "body": "StickerItemLocationType.NOSE_R",
+	  "description": "StickerItemLocationType.NOSE_R"
+	},
+	"StickerItemLocationType.NOSE_L": {
+	  "prefix": "LocationType.NOSE_L",
+	  "body": "StickerItemLocationType.NOSE_L",
+	  "description": "StickerItemLocationType.NOSE_L"
+	},
+	"StickerItemLocationType.MOUTH": {
+	  "prefix": "LocationType.MOUTH",
+	  "body": "StickerItemLocationType.MOUTH",
+	  "description": "StickerItemLocationType.MOUTH"
+	},
+	"StickerItemLocationType.MOUTH_T": {
+	  "prefix": "LocationType.MOUTH_T",
+	  "body": "StickerItemLocationType.MOUTH_T",
+	  "description": "StickerItemLocationType.MOUTH_T"
+	},
+	"StickerItemLocationType.MOUTH_B": {
+	  "prefix": "LocationType.MOUTH_B",
+	  "body": "StickerItemLocationType.MOUTH_B",
+	  "description": "StickerItemLocationType.MOUTH_B"
+	},
+	"StickerItemLocationType.CHIN": {
+	  "prefix": "LocationType.CHIN",
+	  "body": "StickerItemLocationType.CHIN",
+	  "description": "StickerItemLocationType.CHIN"
+	},
+	"StickerItemLocationType.EYES_CENTER": {
+	  "prefix": "LocationType.EYES_CENTER",
+	  "body": "StickerItemLocationType.EYES_CENTER",
+	  "description": "StickerItemLocationType.EYES_CENTER"
+	},
+	"StickerItemLocationType.FACE_CENTER": {
+	  "prefix": "LocationType.FACE_CENTER",
+	  "body": "StickerItemLocationType.FACE_CENTER",
+	  "description": "StickerItemLocationType.FACE_CENTER"
+	},
+	"StickerItemLocationType.EYEBROW_L": {
+	  "prefix": "LocationType.EYEBROW_L",
+	  "body": "StickerItemLocationType.EYEBROW_L",
+	  "description": "StickerItemLocationType.EYEBROW_L"
+	},
+	"StickerItemLocationType.EYEBROW_R": {
+	  "prefix": "LocationType.EYEBROW_R",
+	  "body": "StickerItemLocationType.EYEBROW_R",
+	  "description": "StickerItemLocationType.EYEBROW_R"
+	},
+	"StickerItemLocationType.EYE_LEFT": {
+	  "prefix": "LocationType.EYE_LEFT",
+	  "body": "StickerItemLocationType.EYE_LEFT",
+	  "description": "StickerItemLocationType.EYE_LEFT"
+	},
+	"StickerItemLocationType.EYE_RIGHT": {
+	  "prefix": "LocationType.EYE_RIGHT",
+	  "body": "StickerItemLocationType.EYE_RIGHT",
+	  "description": "StickerItemLocationType.EYE_RIGHT"
+	},
+	"StickerItemLocationType.EAR_LT": {
+	  "prefix": "LocationType.EAR_LT",
+	  "body": "StickerItemLocationType.EAR_LT",
+	  "description": "StickerItemLocationType.EAR_LT"
+	},
+	"StickerItemLocationType.EAR_RT": {
+	  "prefix": "LocationType.EAR_RT",
+	  "body": "StickerItemLocationType.EAR_RT",
+	  "description": "StickerItemLocationType.EAR_RT"
+	},
+	"StickerItemLocationType.EAR_LEFT": {
+	  "prefix": "LocationType.EAR_LEFT",
+	  "body": "StickerItemLocationType.EAR_LEFT",
+	  "description": "StickerItemLocationType.EAR_LEFT"
+	},
+	"StickerItemLocationType.EAR_RIGHT": {
+	  "prefix": "LocationType.EAR_RIGHT",
+	  "body": "StickerItemLocationType.EAR_RIGHT",
+	  "description": "StickerItemLocationType.EAR_RIGHT"
+	},
+	"StickerItemLocationType.AVG_CENTER_0": {
+	  "prefix": "LocationType.AVG_CENTER_0",
+	  "body": "StickerItemLocationType.AVG_CENTER_0",
+	  "description": "StickerItemLocationType.AVG_CENTER_0"
+	},
+	"StickerItemLocationType.AVG_CENTER_1": {
+	  "prefix": "LocationType.AVG_CENTER_1",
+	  "body": "StickerItemLocationType.AVG_CENTER_1",
+	  "description": "StickerItemLocationType.AVG_CENTER_1"
+	},
+	"StickerItemLocationType.AVG_CENTER_2": {
+	  "prefix": "LocationType.AVG_CENTER_2",
+	  "body": "StickerItemLocationType.AVG_CENTER_2",
+	  "description": "StickerItemLocationType.AVG_CENTER_2"
+	},
+	"StickerItemLocationType.AVG_CENTER_3": {
+	  "prefix": "LocationType.AVG_CENTER_3",
+	  "body": "StickerItemLocationType.AVG_CENTER_3",
+	  "description": "StickerItemLocationType.AVG_CENTER_3"
+	},
+	"StickerItemLocationType.AVG_CENTER_4": {
+	  "prefix": "LocationType.AVG_CENTER_4",
+	  "body": "StickerItemLocationType.AVG_CENTER_4",
+	  "description": "StickerItemLocationType.AVG_CENTER_4"
+	},
+	"StickerItemLocationType.AVG_CENTER_5": {
+	  "prefix": "LocationType.AVG_CENTER_5",
+	  "body": "StickerItemLocationType.AVG_CENTER_5",
+	  "description": "StickerItemLocationType.AVG_CENTER_5"
+	},
+	"StickerItemLocationType.AVG_CENTER_6": {
+	  "prefix": "LocationType.AVG_CENTER_6",
+	  "body": "StickerItemLocationType.AVG_CENTER_6",
+	  "description": "StickerItemLocationType.AVG_CENTER_6"
+	},
+	"StickerItemStretchType.FILL": {
+	  "prefix": "StretchType.FILL",
+	  "body": "StickerItemStretchType.FILL",
+	  "description": "StickerItemStretchType.FILL"
+	},
+	"StickerItemStretchType.FILL_ONE_TO_ONE": {
+	  "prefix": "StretchType.FILL_ONE_TO_ONE",
+	  "body": "StickerItemStretchType.FILL_ONE_TO_ONE",
+	  "description": "StickerItemStretchType.FILL_ONE_TO_ONE"
+	},
+	"StickerItemStretchType.FILL_HORIZONTAL": {
+	  "prefix": "StretchType.FILL_HORIZONTAL",
+	  "body": "StickerItemStretchType.FILL_HORIZONTAL",
+	  "description": "StickerItemStretchType.FILL_HORIZONTAL"
+	},
+	"StickerItemStretchType.FILL_VERTICAL": {
+	  "prefix": "StretchType.FILL_VERTICAL",
+	  "body": "StickerItemStretchType.FILL_VERTICAL",
+	  "description": "StickerItemStretchType.FILL_VERTICAL"
+	},
+	"StickerItemStretchType.CENTER_CROP": {
+	  "prefix": "StretchType.CENTER_CROP",
+	  "body": "StickerItemStretchType.CENTER_CROP",
+	  "description": "StickerItemStretchType.CENTER_CROP"
+	},
+	"StickerItemStretchType.FIT_CENTER": {
+	  "prefix": "StretchType.FIT_CENTER",
+	  "body": "StickerItemStretchType.FIT_CENTER",
+	  "description": "StickerItemStretchType.FIT_CENTER"
+	},
+	"StickerItemRotationMode.INVARIANT": {
+	  "prefix": "RotationMode.INVARIANT",
+	  "body": "StickerItemRotationMode.INVARIANT",
+	  "description": "StickerItemRotationMode.INVARIANT"
+	},
+	"StickerItemRotationMode.VARIANT": {
+	  "prefix": "RotationMode.VARIANT",
+	  "body": "StickerItemRotationMode.VARIANT",
+	  "description": "StickerItemRotationMode.VARIANT"
+	},
+	"StickerItemRotationMode.SHOW_ON_PORTRAIT_ONLY": {
+	  "prefix": "RotationMode.SHOW_ON_PORTRAIT_ONLY",
+	  "body": "StickerItemRotationMode.SHOW_ON_PORTRAIT_ONLY",
+	  "description": "StickerItemRotationMode.SHOW_ON_PORTRAIT_ONLY"
+	},
+	"StickerItemRotationMode.SHOW_ON_LANDSCAPE_ONLY": {
+	  "prefix": "RotationMode.SHOW_ON_LANDSCAPE_ONLY",
+	  "body": "StickerItemRotationMode.SHOW_ON_LANDSCAPE_ONLY",
+	  "description": "StickerItemRotationMode.SHOW_ON_LANDSCAPE_ONLY"
+	},
+	"StickerItemRotationMode.ROTATE_BY_IMAGE_RATIO": {
+	  "prefix": "RotationMode.ROTATE_BY_IMAGE_RATIO",
+	  "body": "StickerItemRotationMode.ROTATE_BY_IMAGE_RATIO",
+	  "description": "StickerItemRotationMode.ROTATE_BY_IMAGE_RATIO"
+	},
+	"StickerItemRotationMode.MAX_ROTATION_MODE": {
+	  "prefix": "RotationMode.MAX_ROTATION_MODE",
+	  "body": "StickerItemRotationMode.MAX_ROTATION_MODE",
+	  "description": "StickerItemRotationMode.MAX_ROTATION_MODE"
+	},
+	"KuruBackgroundImageNodeStretch.FILL": {
+	  "prefix": "bgStretch.FILL",
+	  "body": "KuruBackgroundImageNodeStretch.FILL",
+	  "description": "KuruBackgroundImageNodeStretch.FILL"
+	},
+	"KuruBackgroundImageNodeStretch.FILL_ONE_TO_ONE": {
+	  "prefix": "bgStretch.FILL_ONE_TO_ONE",
+	  "body": "KuruBackgroundImageNodeStretch.FILL_ONE_TO_ONE",
+	  "description": "KuruBackgroundImageNodeStretch.FILL_ONE_TO_ONE"
+	},
+	"KuruBackgroundImageNodeStretch.FILL_HORIZONTAL": {
+	  "prefix": "bgStretch.FILL_HORIZONTAL",
+	  "body": "KuruBackgroundImageNodeStretch.FILL_HORIZONTAL",
+	  "description": "KuruBackgroundImageNodeStretch.FILL_HORIZONTAL"
+	},
+	"KuruBackgroundImageNodeStretch.FILL_VERTICAL": {
+	  "prefix": "bgStretch.FILL_VERTICAL",
+	  "body": "KuruBackgroundImageNodeStretch.FILL_VERTICAL",
+	  "description": "KuruBackgroundImageNodeStretch.FILL_VERTICAL"
+	},
+	"KuruBackgroundImageNodeStretch.CENTER_CROP": {
+	  "prefix": "bgStretch.CENTER_CROP",
+	  "body": "KuruBackgroundImageNodeStretch.CENTER_CROP",
+	  "description": "KuruBackgroundImageNodeStretch.CENTER_CROP"
+	},
+	"KuruBackgroundImageNodeStretch.FIT_CENTER": {
+	  "prefix": "bgStretch.FIT_CENTER",
+	  "body": "KuruBackgroundImageNodeStretch.FIT_CENTER",
+	  "description": "KuruBackgroundImageNodeStretch.FIT_CENTER"
+	},
+	"KuruBackgroundImageNodeStretch.NONE": {
+	  "prefix": "bgStretch.NONE",
+	  "body": "KuruBackgroundImageNodeStretch.NONE",
+	  "description": "KuruBackgroundImageNodeStretch.NONE"
+	},
+	"KuruBackgroundImageNodeStretch.UNIFORM_FILL": {
+	  "prefix": "bgStretch.UNIFORM_FILL",
+	  "body": "KuruBackgroundImageNodeStretch.UNIFORM_FILL",
+	  "description": "KuruBackgroundImageNodeStretch.UNIFORM_FILL"
+	},
+	"KuruBackgroundImageNodeStretch.MAX_STRETCH": {
+	  "prefix": "bgStretch.MAX_STRETCH",
+	  "body": "KuruBackgroundImageNodeStretch.MAX_STRETCH",
+	  "description": "KuruBackgroundImageNodeStretch.MAX_STRETCH"
+	},
+	"KuruBackgroundImageNodeAnchorType.CENTER": {
+	  "prefix": "bgAnchorType.CENTER",
+	  "body": "KuruBackgroundImageNodeAnchorType.CENTER",
+	  "description": "KuruBackgroundImageNodeAnchorType.CENTER"
+	},
+	"KuruBackgroundImageNodeAnchorType.LEFT": {
+	  "prefix": "bgAnchorType.LEFT",
+	  "body": "KuruBackgroundImageNodeAnchorType.LEFT",
+	  "description": "KuruBackgroundImageNodeAnchorType.LEFT"
+	},
+	"KuruBackgroundImageNodeAnchorType.RIGHT": {
+	  "prefix": "bgAnchorType.RIGHT",
+	  "body": "KuruBackgroundImageNodeAnchorType.RIGHT",
+	  "description": "KuruBackgroundImageNodeAnchorType.RIGHT"
+	},
+	"KuruBackgroundImageNodeAnchorType.TOP": {
+	  "prefix": "bgAnchorType.TOP",
+	  "body": "KuruBackgroundImageNodeAnchorType.TOP",
+	  "description": "KuruBackgroundImageNodeAnchorType.TOP"
+	},
+	"KuruBackgroundImageNodeAnchorType.BOTTOM": {
+	  "prefix": "bgAnchorType.BOTTOM",
+	  "body": "KuruBackgroundImageNodeAnchorType.BOTTOM",
+	  "description": "KuruBackgroundImageNodeAnchorType.BOTTOM"
+	},
+	"KuruBackgroundImageNodeAnchorType.LEFT_TOP": {
+	  "prefix": "bgAnchorType.LEFT_TOP",
+	  "body": "KuruBackgroundImageNodeAnchorType.LEFT_TOP",
+	  "description": "KuruBackgroundImageNodeAnchorType.LEFT_TOP"
+	},
+	"KuruBackgroundImageNodeAnchorType.LEFT_BOTTOM": {
+	  "prefix": "bgAnchorType.LEFT_BOTTOM",
+	  "body": "KuruBackgroundImageNodeAnchorType.LEFT_BOTTOM",
+	  "description": "KuruBackgroundImageNodeAnchorType.LEFT_BOTTOM"
+	},
+	"KuruBackgroundImageNodeAnchorType.RIGHT_TOP": {
+	  "prefix": "bgAnchorType.RIGHT_TOP",
+	  "body": "KuruBackgroundImageNodeAnchorType.RIGHT_TOP",
+	  "description": "KuruBackgroundImageNodeAnchorType.RIGHT_TOP"
+	},
+	"KuruBackgroundImageNodeAnchorType.RIGHT_BOTTOM": {
+	  "prefix": "bgAnchorType.RIGHT_BOTTOM",
+	  "body": "KuruBackgroundImageNodeAnchorType.RIGHT_BOTTOM",
+	  "description": "KuruBackgroundImageNodeAnchorType.RIGHT_BOTTOM"
+	},
+	"KuruBackgroundImageNodeAnchorType.MAX_ANCHOR_TYPE": {
+	  "prefix": "bgAnchorType.MAX_ANCHOR_TYPE",
+	  "body": "KuruBackgroundImageNodeAnchorType.MAX_ANCHOR_TYPE",
+	  "description": "KuruBackgroundImageNodeAnchorType.MAX_ANCHOR_TYPE"
+	},
+	"Vector2AspectRatioType.ANY": {
+	  "prefix": "AspectRatioType.ANY",
+	  "body": "Vector2AspectRatioType.ANY",
+	  "description": "Vector2AspectRatioType.ANY"
+	},
+	"Vector2AspectRatioType.NINE_TO_SIXTEEN": {
+	  "prefix": "AspectRatioType.NINE_TO_SIXTEEN",
+	  "body": "Vector2AspectRatioType.NINE_TO_SIXTEEN",
+	  "description": "Vector2AspectRatioType.NINE_TO_SIXTEEN"
+	},
+	"Vector2AspectRatioType.THREE_TO_FOUR": {
+	  "prefix": "AspectRatioType.THREE_TO_FOUR",
+	  "body": "Vector2AspectRatioType.THREE_TO_FOUR",
+	  "description": "Vector2AspectRatioType.THREE_TO_FOUR"
+	},
+	"Vector2AspectRatioType.ONE_TO_ONE": {
+	  "prefix": "AspectRatioType.ONE_TO_ONE",
+	  "body": "Vector2AspectRatioType.ONE_TO_ONE",
+	  "description": "Vector2AspectRatioType.ONE_TO_ONE"
+	},
+	"Vector2AspectRatioType.FOUR_TO_THREE": {
+	  "prefix": "AspectRatioType.FOUR_TO_THREE",
+	  "body": "Vector2AspectRatioType.FOUR_TO_THREE",
+	  "description": "Vector2AspectRatioType.FOUR_TO_THREE"
+	},
+	"Vector2AspectRatioType.SIXTEEN_TO_NINE": {
+	  "prefix": "AspectRatioType.SIXTEEN_TO_NINE",
+	  "body": "Vector2AspectRatioType.SIXTEEN_TO_NINE",
+	  "description": "Vector2AspectRatioType.SIXTEEN_TO_NINE"
+	},
+	"Vector2AspectRatioType.MAX": {
+	  "prefix": "AspectRatioType.MAX",
+	  "body": "Vector2AspectRatioType.MAX",
+	  "description": "Vector2AspectRatioType.MAX"
+	},
+	"BlendMode.None": {
+	  "prefix": "BlendMode.None",
+	  "body": "BlendMode.None",
+	  "description": "BlendMode.None"
+	},
+	"BlendMode.Add": {
+	  "prefix": "BlendMode.Add",
+	  "body": "BlendMode.Add",
+	  "description": "BlendMode.Add"
+	},
+	"BlendMode.Average": {
+	  "prefix": "BlendMode.Average",
+	  "body": "BlendMode.Average",
+	  "description": "BlendMode.Average"
+	},
+	"BlendMode.Burn": {
+	  "prefix": "BlendMode.Burn",
+	  "body": "BlendMode.Burn",
+	  "description": "BlendMode.Burn"
+	},
+	"BlendMode.Dodge": {
+	  "prefix": "BlendMode.Dodge",
+	  "body": "BlendMode.Dodge",
+	  "description": "BlendMode.Dodge"
+	},
+	"BlendMode.Darken": {
+	  "prefix": "BlendMode.Darken",
+	  "body": "BlendMode.Darken",
+	  "description": "BlendMode.Darken"
+	},
+	"BlendMode.Difference": {
+	  "prefix": "BlendMode.Difference",
+	  "body": "BlendMode.Difference",
+	  "description": "BlendMode.Difference"
+	},
+	"BlendMode.Exclusion": {
+	  "prefix": "BlendMode.Exclusion",
+	  "body": "BlendMode.Exclusion",
+	  "description": "BlendMode.Exclusion"
+	},
+	"BlendMode.Glow": {
+	  "prefix": "BlendMode.Glow",
+	  "body": "BlendMode.Glow",
+	  "description": "BlendMode.Glow"
+	},
+	"BlendMode.HardLight": {
+	  "prefix": "BlendMode.HardLight",
+	  "body": "BlendMode.HardLight",
+	  "description": "BlendMode.HardLight"
+	},
+	"BlendMode.HardMix": {
+	  "prefix": "BlendMode.HardMix",
+	  "body": "BlendMode.HardMix",
+	  "description": "BlendMode.HardMix"
+	},
+	"BlendMode.Lighten": {
+	  "prefix": "BlendMode.Lighten",
+	  "body": "BlendMode.Lighten",
+	  "description": "BlendMode.Lighten"
+	},
+	"BlendMode.LinearBurn": {
+	  "prefix": "BlendMode.LinearBurn",
+	  "body": "BlendMode.LinearBurn",
+	  "description": "BlendMode.LinearBurn"
+	},
+	"BlendMode.LinearDodge": {
+	  "prefix": "BlendMode.LinearDodge",
+	  "body": "BlendMode.LinearDodge",
+	  "description": "BlendMode.LinearDodge"
+	},
+	"BlendMode.LinearLight": {
+	  "prefix": "BlendMode.LinearLight",
+	  "body": "BlendMode.LinearLight",
+	  "description": "BlendMode.LinearLight"
+	},
+	"BlendMode.Multiply": {
+	  "prefix": "BlendMode.Multiply",
+	  "body": "BlendMode.Multiply",
+	  "description": "BlendMode.Multiply"
+	},
+	"BlendMode.Negation": {
+	  "prefix": "BlendMode.Negation",
+	  "body": "BlendMode.Negation",
+	  "description": "BlendMode.Negation"
+	},
+	"BlendMode.Normal": {
+	  "prefix": "BlendMode.Normal",
+	  "body": "BlendMode.Normal",
+	  "description": "BlendMode.Normal"
+	},
+	"BlendMode.Overlay": {
+	  "prefix": "BlendMode.Overlay",
+	  "body": "BlendMode.Overlay",
+	  "description": "BlendMode.Overlay"
+	},
+	"BlendMode.Phoenix": {
+	  "prefix": "BlendMode.Phoenix",
+	  "body": "BlendMode.Phoenix",
+	  "description": "BlendMode.Phoenix"
+	},
+	"BlendMode.PinLight": {
+	  "prefix": "BlendMode.PinLight",
+	  "body": "BlendMode.PinLight",
+	  "description": "BlendMode.PinLight"
+	},
+	"BlendMode.Reflect": {
+	  "prefix": "BlendMode.Reflect",
+	  "body": "BlendMode.Reflect",
+	  "description": "BlendMode.Reflect"
+	},
+	"BlendMode.Screen": {
+	  "prefix": "BlendMode.Screen",
+	  "body": "BlendMode.Screen",
+	  "description": "BlendMode.Screen"
+	},
+	"BlendMode.SoftLight": {
+	  "prefix": "BlendMode.SoftLight",
+	  "body": "BlendMode.SoftLight",
+	  "description": "BlendMode.SoftLight"
+	},
+	"BlendMode.Subtract": {
+	  "prefix": "BlendMode.Subtract",
+	  "body": "BlendMode.Subtract",
+	  "description": "BlendMode.Subtract"
+	},
+	"BlendMode.VividLight": {
+	  "prefix": "BlendMode.VividLight",
+	  "body": "BlendMode.VividLight",
+	  "description": "BlendMode.VividLight"
+	},
+	"BlendMode.Color": {
+	  "prefix": "BlendMode.Color",
+	  "body": "BlendMode.Color",
+	  "description": "BlendMode.Color"
+	},
+	"BlendMode.Hue": {
+	  "prefix": "BlendMode.Hue",
+	  "body": "BlendMode.Hue",
+	  "description": "BlendMode.Hue"
+	},
+	"BlendMode.Saturation": {
+	  "prefix": "BlendMode.Saturation",
+	  "body": "BlendMode.Saturation",
+	  "description": "BlendMode.Saturation"
+	},
+	"BlendMode.Luminosity": {
+	  "prefix": "BlendMode.Luminosity",
+	  "body": "BlendMode.Luminosity",
+	  "description": "BlendMode.Luminosity"
+	},
+	"BlendMode.Divide": {
+	  "prefix": "BlendMode.Divide",
+	  "body": "BlendMode.Divide",
+	  "description": "BlendMode.Divide"
+	},
+	"MaterialParameter": {
+	  "prefix": "MaterialParameter",
+	  "body": "getMaterial():getParameter(\"$1\"):$2",
+	  "description": "MaterialParameter"
+	},
+	"Kuru.Print": {
+	  "prefix": "kp",
+	  "body": "print(string.format(\"[[[[[[[[[[SCRIPT Error & Debug]]]]]]]]]] $1 = %s\", $1))$2",
+	  "description": "Kuru.Print"
+	},
+	"Kuru.Print2": {
+	  "prefix": "kp2",
+	  "body": "print(string.format(\"[[[[[[[[[[SCRIPT Error & Debug]]]]]]]]]] $1 = %s, $2 = %s\", $1, $2))$3",
+	  "description": "Kuru.Print2"
+	},
+	"Kuru.Print3": {
+	  "prefix": "kp3",
+	  "body": "print(string.format(\"[[[[[[[[[[SCRIPT Error & Debug]]]]]]]]]] $1 = %s, $2 = %s, $3 = %s\", $1, $2, $3))$4",
+	  "description": "Kuru.Print3"
+	},
+	"Kuru.Print4": {
+	  "prefix": "kp4",
+	  "body": "print(string.format(\"[[[[[[[[[[SCRIPT Error & Debug]]]]]]]]]] $1 = %s, $2 = %s, $3 = %s, $4 = %s\", $1, $2, $3, $4))$5",
+	  "description": "Kuru.Print4"
+	},
+	"Scene:addNodeAndRelease": {
+	  "prefix": "addNodeAndRelease",
+	  "body": "KuruNodeKit.addNodeAndRelease(scene, $1)$2",
+	  "description": "Scene:addNodeAndRelease"
+	},
+	"Scene:replaceNodeAndRelease": {
+	  "prefix": "replaceNodeAndRelease",
+	  "body": "scene:replaceNodeAndRelease($1old, $2new)$3",
+	  "description": "Scene:replaceNodeAndRelease"
+	},
+	"Scene:removeNode": {
+	  "prefix": "removeNode",
+	  "body": "scene:removeNode($1)$2",
+	  "description": "Scene:removeNode"
+	},
+	"Node:addChildAndRelease": {
+	  "prefix": "addChildAndRelease",
+	  "body": "KuruNodeKit.addChildAndRelease($1, $2)$3",
+	  "description": "Node:addChildAndRelease"
+	},
+	"Node:removeChild": {
+	  "prefix": "removeChild",
+	  "body": "$1:removeChild($2)$3",
+	  "description": "Node:removeChild"
+	},
+	"Scene:getTotalElapsedTime": {
+	  "prefix": "getTotalElapsedTime",
+	  "body": "scene:getTotalElapsedTime()$1",
+	  "description": "Scene:getTotalElapsedTime"
+	},
+	"Scene:getResolution": {
+	  "prefix": "getResolution",
+	  "body": "scene:getResolution()$1",
+	  "description": "Scene:getResolution"
+	},
+	"SegType.FIGURE": {
+	  "prefix": "SegType.FIGURE",
+	  "body": "SegType.FIGURE",
+	  "description": "SegType.FIGURE"
+	},
+	"SegType.HAIR": {
+	  "prefix": "SegType.HAIR",
+	  "body": "SegType.HAIR",
+	  "description": "SegType.HAIR"
+	},
+	"SegType.SKIN": {
+	  "prefix": "SegType.SKIN",
+	  "body": "SegType.SKIN",
+	  "description": "SegType.SKIN"
+	},
+	"SegType.HEAD": {
+	  "prefix": "SegType.HEAD",
+	  "body": "SegType.HEAD",
+	  "description": "SegType.HEAD"
+	},
+	"SegType.LIP": {
+	  "prefix": "SegType.LIP",
+	  "body": "SegType.LIP",
+	  "description": "SegType.LIP"
+	},
+	"SegType.NUM_SEG_TYPE": {
+	  "prefix": "SegType.NUM_SEG_TYPE",
+	  "body": "SegType.NUM_SEG_TYPE",
+	  "description": "SegType.NUM_SEG_TYPE"
+	},
+
+	"TextureSampler.INVALID": {
+	  "prefix": "TextureSampler.INVALID_SAMPLER()",
+	  "body": "TextureSampler.INVALID_SAMPLER()",
+	  "description": "get Invalid Texture"
+	},
+	"TextureSampler.TRANSPARENT": {
+	  "prefix": "TextureSampler.TRANSPARENT_SAMPLER()",
+	  "body": "TextureSampler.TRANSPARENT_SAMPLER()",
+	  "description": "get Transparent Texture"
+	},
+	"TextureSampler.WHITE": {
+	  "prefix": "TextureSampler.WHITE_SAMPLER()",
+	  "body": "TextureSampler.WHITE_SAMPLER()",
+	  "description": "get White Texture"
+	},
+
+
+
+}
+  

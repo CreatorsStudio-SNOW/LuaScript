@@ -16,6 +16,66 @@ $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
 $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 ```
 
+## Coding Convention
+
+#### Naming  
+|Type|Rule|Example|
+|:-|:-|:-|
+|Variables|lowerCamelCase|camelCase = nil<br>backGroundColor = nil|
+|Constants|Uppercase+"_"|IMAGE_WIDTH = 70.0<br>IMAGE_HEIGHT = 100.0|
+|Global Variables|prefix **g_xx**|g_camelCase = nil<br>g_backGroundColor = nil|
+
+
+#### Allocation Order
+1. require
+2. Enum, Class
+3. Constants
+4. Callbacks
+5. Other functions
+
+```lua
+--script.lua allocation example
+--1. require
+require "KuruNodeKit/KuruNodeKit.lua"
+
+--2. Enum, class
+GameState = {
+READY = 1,
+READY_TO_START = 2,
+PLAYING = 3,
+FAIL = 4,
+SUCCESS = 5
+}
+
+Game = {
+scene = nil,
+state = GameState.READY,
+score = 0,
+}
+
+--3. Constants
+MAX_COUNT = 3
+
+--4. Callbacks
+function initialize(scene)
+  print("initialize")
+end
+
+
+function frameReady(scene)
+  print("frameReady")
+end
+
+function finalize(scene)
+  print("finalize")
+end
+
+--5. Other Functions
+function myFunction()
+  print("myFunction")
+end
+```
+
 ## Libraries
 LuaScript를 통한 컨텐츠 개발 시 자주 사용되는 기능들을 쉽게 사용할 수 있도록 만든 라이브러리들입니다.<br>
 각 라이브러리의 디렉토리에 간단한 기능 설명과 지원하는 버전을 제공하고 있습니다.

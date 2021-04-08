@@ -16,17 +16,16 @@ $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
 $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 ```
 
-#### Samples
 <details>
   <summary>Samples</summary>
-  Sample 01 - BackgroundImage, FaceSticker, TouchEvent
-  Sample 02
-  Sample 03
-  Sample 04
-  Sample 05
+  - Sample 01 - BackgroundImage, FaceSticker, TouchEvent<br>
+  - Sample 02<br>
+  - Sample 03<br>  
+  - Sample 04<br>  
+  - Sample 05<br>  
 </details>
-## Coding Convention
 
+## Coding Convention
 #### Naming  
 |Type|Rule|Example|
 |:-|:-|:-|
@@ -37,12 +36,12 @@ $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 
 #### Allocation Order
 <details>
-  <summary>details</summary>
-1. require
-2. Enum, Class
-3. Constants
-4. Callbacks
-5. Other functions
+  <summary>Details..</summary>
+1. require<br>  
+2. Enum, Class<br>
+3. Constants<br>
+4. Callbacks<br>
+5. Other functions<br>
 
 ```lua
 --script.lua allocation example

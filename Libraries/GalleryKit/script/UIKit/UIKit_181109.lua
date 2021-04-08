@@ -1,5 +1,0 @@
-require "UIKit/UIView_181109.lua"
-require "UIKit/UIButton_181109.lua"
-require "UIKit/UIRect_180809.lua"
-require "UIKit/UIScrollView_181101.lua"
-require "UIKit/UISamplerView_180911.lua"

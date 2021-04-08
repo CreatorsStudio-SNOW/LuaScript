@@ -1,5 +1,0 @@
-require "CEModelKit/CEModelComponent.lua"
-require "CEModelKit/CEModel.lua"
-require "CEModelKit/CEFaceModel.lua"
-require "CEModelKit/CEFitModel.lua"
-require "CEModelKit/CEARModel.lua"

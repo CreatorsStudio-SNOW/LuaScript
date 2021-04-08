@@ -32,6 +32,8 @@ $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 |Variables|lowerCamelCase|camelCase = nil<br>backGroundColor = nil|
 |Constants|Uppercase+"_"|IMAGE_WIDTH = 70.0<br>IMAGE_HEIGHT = 100.0|
 |Global Variables|prefix **g_xx**|g_camelCase = nil<br>g_backGroundColor = nil|
+|Function|function **functionName**(param)<br>end|function initialize(scene)<br>print("initialize")<br>end|
+
 
 
 #### Allocation Order

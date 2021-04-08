@@ -16,6 +16,15 @@ $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
 $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 ```
 
+#### Samples
+<details>
+  <summary>Samples</summary>
+  Sample 01 - BackgroundImage, FaceSticker, TouchEvent
+  Sample 02
+  Sample 03
+  Sample 04
+  Sample 05
+</details>
 ## Coding Convention
 
 #### Naming  
@@ -27,6 +36,8 @@ $ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 
 
 #### Allocation Order
+<details>
+  <summary>details</summary>
 1. require
 2. Enum, Class
 3. Constants
@@ -75,6 +86,10 @@ function myFunction()
   print("myFunction")
 end
 ```
+
+</details>
+
+
 
 ## Libraries
 LuaScript를 통한 컨텐츠 개발 시 자주 사용되는 기능들을 쉽게 사용할 수 있도록 만든 라이브러리들입니다.<br>

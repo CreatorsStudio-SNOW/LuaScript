@@ -8,7 +8,7 @@
 - [WebGL GLSL Editor](https://marketplace.visualstudio.com/items?itemName=raczzalan.webgl-glsl-editor)
 
 ## Getting Started
-```
+```shell
 # Clone this repository
 $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
 

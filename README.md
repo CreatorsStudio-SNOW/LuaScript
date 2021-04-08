@@ -13,7 +13,7 @@
 $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
 
 # Set custom snippets into VSCode snippet setting
-$ cp ./vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
+$ cp ./tools/vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 ```
 
 <details>

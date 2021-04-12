@@ -1,0 +1,71 @@
+--
+-- filter.lua
+-- Studio 644 built-in lua script template
+--
+-----------------------------------------------------------------------------
+-- MAKE SURE BUMP FilterTemplateConfig.version (+1) ON EDITING THIS SCRIPT --
+-----------------------------------------------------------------------------
+-- Version 19 by Seungyeon Kim on 2020.09.04
+-- Refine Script
+-- Marvel 필터 제거
+-- Sharpness 조절 정리
+-- filter Intensity 조절 로직 수정
+-- sliderType으로 스티커/스타일/필터에서 각각 강도조절하거나 모두 off하도록 수정
+-- 전/후면 각각 lut하나만 사용하기 때문에 테이블형 변수/로직에서 단일 변수형으로 수정
+-- http://bts.snowcorp.com/browse/C_CONTENTS-371
+--
+
+-- Version 17 by Wonhyo Yi on 2020.03.18
+-- PropertyConfig 참조 키 변경
+-- stickerSliderValue 제거
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/1086
+--
+-- Version 16 by Wonhyo Yi on 2020.03.03
+-- 소프트 필터 제거
+--
+-- Version 15 by Wonhyo Yi on 2020.02.20
+-- 카메라에 필터 적용되지 않던 버그 수정
+--
+-- Version 14 by Wonhyo Yi on 2020.02.18
+-- 후편집에서 샤픈 적용되지 않도록
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/1057
+--
+-- Version 13 by Wonhyo Yi on 2019.12.12
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/998
+--
+-- Version 12 by Sangyeol Kang on 2019.12.02
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/985
+--
+-- Version 11 by Wonhyo Yi on 2019.11.22
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/977
+--
+-- Version 10 by Wonhyo Yi on 2019.10.16
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/944
+--
+-- Version 9 by Sangyeol Kang on 2019.10.14
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/936
+--
+-- Version 8 by Wonhyo Yi on 2019.10.02
+-- Fix 'isFilterActivated' problem in SODA 1.8.8
+--
+-- Version 7 by Wonhyo Yi on 2019.09.26
+-- Fix filter intensity error on camera changed
+--
+-- Version 6 by Wonhyo Yi on 2019.09.20
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/921
+--
+-- Version 5 by Wonhyo Yi on 2019.09.18
+-- http://bts.snowcorp.com/browse/SELFIECAM-15540
+--
+-- Version 4 by Wonhyo Yi on 2019.09.17
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/909
+--
+-- Version 3 by Wonhyo Yi on 2019.09.09
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/909
+--
+-- Version 2 by Wonhyo Yi on 2019.09.02.
+-- https://oss.navercorp.com/video-division/studio-644-ios/issues/900
+--
+-- Created by Wonhyo Yi on 2019.07.02.
+-- Copyright © 2019 SNOW. All rights reserved.
+--

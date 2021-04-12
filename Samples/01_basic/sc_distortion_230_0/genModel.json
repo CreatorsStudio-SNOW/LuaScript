@@ -1,0 +1,16 @@
+{
+  "dataModels" : [
+    {
+      "aliases" : "distortion",
+      "modelType" : "distortion",
+      "distortionType" : "app",
+      "name" : "distortion0",
+      "modelName" : ""
+    }
+  ],
+  "editableProperties" : {
+
+  },
+  "templateName" : "Distortion",
+  "version" : "2.3.0"
+}

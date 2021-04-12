@@ -1,0 +1,88 @@
+material textured
+{
+    u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+
+    sampler u_diffuseTexture
+    {
+        mipmap = true
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+
+    renderState
+    {
+        cullFace = true
+        depthTest = true
+        blend = true
+        srcBlend = SRC_ALPHA
+        dstBlend = ONE_MINUS_SRC_ALPHA
+    }
+
+    technique
+    {
+        pass
+        {
+            vertexShader = res/shaders/textured.vert
+            fragmentShader = res/shaders/textured.frag
+        }
+    }
+}
+
+material iris : textured
+{
+    u_specularExponent = 2675
+    u_specularAttenuation = 0.48
+    u_textureOffset = 0, -1
+    u_cubeTextureAlpha = 0.22
+
+    sampler u_diffuseTexture
+    {
+        path = diffuse.png
+        wrapS = REPEAT
+        wrapT = REPEAT
+    }
+
+    sampler u_cubeTexture
+    {
+        path = environment.png
+        cubeMap = true
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR
+        magFilter = LINEAR
+    }
+
+    // uniforms
+    u_inverseTransposeWorldViewMatrix = INVERSE_TRANSPOSE_WORLD_VIEW_MATRIX
+    u_cameraPosition = CAMERA_WORLD_POSITION
+    u_worldMatrix = WORLD_MATRIX
+    u_worldViewMatrix = WORLD_VIEW_MATRIX
+    u_deviceRoll = DEVICE_ROLL
+    u_deviceInvRoll = DEVICE_INV_ROLL
+
+    //r,g,b
+    u_ambientColor = 0.1, 0.1, 0.1
+    //x,y,z (auto normalize)
+    u_directionalLightDirection[0] = -0.28, 0.10, -1.00
+    //r,g,b
+    u_directionalLightColor[0] = 1.20, 1.20, 1.20
+
+    //x,y,z (auto normalize)
+    u_directionalLightDirection[1] = 0.00, 0.05, -1.00
+    //r,g,b
+    u_directionalLightColor[1] = 0.3, 0.3, 0.3
+
+    u_modulateAlpha = 0.70
+
+
+    technique
+    {
+        pass
+        {
+            defines = SPECULAR;CUBE_MAP;MODULATE_ALPHA;TEXTURE_OFFSET;SPECULAR_ATTENUATION;CUBE_MAP_ALPHA;DIRECTIONAL_LIGHT_COUNT 2
+        }
+    }
+}
+

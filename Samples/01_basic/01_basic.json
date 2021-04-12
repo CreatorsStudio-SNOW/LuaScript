@@ -1,7 +1,24 @@
 {
   "result" : {
     "distortionType" : 31,
+    "filterName" : "0",
     "items" : [
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "mergeable" : true,
+        "resourceName" : "sc_makeup_242_0.zip",
+        "resourceType" : "SEQUENCE",
+        "shouldNotDecrypt" : true
+      },
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "mergeable" : true,
+        "resourceName" : "sc_distortion_230_0.zip",
+        "resourceType" : "SEQUENCE",
+        "shouldNotDecrypt" : true
+      },
       {
         "drawType" : "SCRIPT",
         "fps" : 20,
@@ -10,17 +27,19 @@
         "resourceType" : "SEQUENCE"
       },
       {
-        "alpha" : 0.60000002384185791,
-        "drawType" : "BACKGROUND",
-        "repeatEndOffset" : 0,
-        "resourceName" : "b_noise1.png",
-        "stretchType" : "CENTER_CROP",
-        "triggerType" : "ALWAYS"
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "mergeable" : true,
+        "resourceName" : "sc_filter_22_0.zip",
+        "resourceType" : "SEQUENCE",
+        "shouldNotDecrypt" : true
       }
     ],
     "name" : "01_basic",
     "noFilterOnSticker" : true,
     "renderByOrder" : true,
-    "resourceEncryption" : false
+    "resourceEncryption" : false,
+    "stickerDistortionRate" : 49,
+    "useLip240" : true
   }
 }

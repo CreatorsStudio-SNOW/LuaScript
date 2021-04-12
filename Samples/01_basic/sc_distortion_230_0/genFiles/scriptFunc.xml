@@ -1,0 +1,31 @@
+<genRule version="2.3.0" dstFilePath="script.lua" convertSrc="convertFunc.lua">
+    <codeBlocks>
+        <global>customUniDist = nil</global>
+        <function name="initialize" param="scene" isCallBack="true">
+            ^{dataModels[1]->initialize}^
+        </function>
+    </codeBlocks>
+    <rootChildGenModels>
+        <genModel modelType="distortion" min="1" max="1"></genModel>
+        <code type="initialize">
+            ^{generateInitialize(distortionType)}^
+        </code>
+    </rootChildGenModels>
+    <genModels>
+        <genModel modelType="distortion">
+            <code type="initialize">
+                ^{generateInitialize(distortionType)}^
+            </code>
+            <properties>
+                <property name="distortionType" type="enum" default="app">
+                    <enum>
+                        <element>app</element>
+                        <element>face</element>
+                        <element>uni</element>
+                        <element>uniAndFace</element>
+                    </enum>
+                </property>
+            </properties>
+        </genModel>
+    </genModels>
+</genRule>

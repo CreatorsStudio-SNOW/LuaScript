@@ -1,0 +1,19 @@
+config_separateCamera = false
+config_enableFilterInAlbum = false
+config_initialIntensity = 0.7
+config_initialRearIntensity = 0.8
+config_filter = 201
+config_rearFilter = 0
+config_filterName = 'clean'
+config_rearFilterName = ''
+config_opacity = 1.0
+config_rearOpacity = 1.0
+config_version = 22
+config_iosSharpIntensity = 0.7
+config_sliderType = 2
+config_templateName = 'sc_filter'
+SliderType = {
+	Off = 0,
+	Sticker = 1,
+	StyleFilter = 2
+}

@@ -1,0 +1,1257 @@
+<genRule version="2.4.2" dstFilePath="script.lua" convertSrc="convertFunc.lua">
+    <codeBlocks>
+        <global>^{_getMakeupConfigDef(dataModels[1].dataModels)}^</global>
+        <global>appStrength = 1.0</global>
+        <global>maxStrength = ^{dataModels[1].maxStrength}^</global>
+        <global>minStrength = ^{dataModels[1].minStrength}^</global>
+        <global>^{_getMakeupStrength(dataModels[1].dataModels)}^</global>
+        <function name="initialize" param="scene" isCallBack="true">
+            ^{dataModels[1]->initialize}^
+        </function>
+        <function name="frameReady" param="scene, elapsedTime" isCallBack="true">
+            ^{dataModels[1]->frameReady}^
+        </function>
+        <function name="setMakeupParam" isCallBack="false">
+            ^{dataModels[1]->setMakeupParam}^
+        </function>
+    </codeBlocks>
+    <rootChildGenModels>
+        <genModel modelType ="makeup" min="1" max="1"></genModel>
+    </rootChildGenModels>
+    <genModels>
+        <genModel modelType="makeup">
+            <requiredFunctions>setMakeupParam</requiredFunctions>
+            <code type="initialize">
+                local b = KuruMakeupNodeBuilder.create():useAsianModel(true):mergedResource(true)
+                ^{name}^ = KuruMakeupNode.createWithBuilder(b:build())
+                ^{name}^:setEyeShadowMultiStrength(true)
+                scene:addNodeAndRelease(^{name}^)
+                makeup_param = ^{name}^:getParam()
+                ^{_getInitialMakeUpNodeNodeDef(dataModels)}^
+                setMakeupParam()
+            </code>
+            <code type="frameReady">
+                setMakeupParam()
+            </code>
+            <code type="setMakeupParam">
+                ^{getAppStrength(useAppSlider, sliderType)}^
+                ^{_getParamStrengthDef(dataModels, name)}^
+            </code>
+            <properties>
+                <property name ="useAppSlider" type="bool"></property>
+                <property name ="appSlider" type="int" default = "100" min="0" max="100">
+                    <setterString>PropertyConfig.instance():setNumber("stickerSliderValue", ^{self}^ * 0.01)</setterString>
+                </property>
+                <property name ="sliderType" type="enum" default="stickerSliderValue">
+                    <enum>
+                        <element>stickerSliderValue</element>
+                        <element>makeupSliderValue</element>
+                    </enum>
+                </property>
+                <property name ="minStrength" type="float" default="0.0" min="0" max="1">
+                    <setterString>minStrength = ^{self}^
+                    ^{_getParamStrengthDef(dataModels, name)}^</setterString>
+                </property>
+                <property name ="maxStrength" type="float" default="1.0" min="0" max="1">
+                    <setterString>maxStrength = ^{self}^
+                        ^{_getParamStrengthDef(dataModels, name)}^</setterString>
+                </property>
+            </properties>
+            <childGenModels>
+                <genModel modelType="blush" min="0" max="1"></genModel>
+                <genModel modelType="contour" min="0" max="1"></genModel>
+                <genModel modelType="eyeLine" min="0" max="1"></genModel>
+                <genModel modelType="eyeBrows" min="0" max="1"></genModel>
+                <genModel modelType="eyeBrowLayer0" min="0" max="1"></genModel>
+                <genModel modelType="eyeBrowLayer1" min="0" max="1"></genModel>
+                <genModel modelType="eyeBrowLayer2" min="0" max="1"></genModel>
+                <genModel modelType="eyeLid" min="0" max="1"></genModel>
+                <genModel modelType="eyeColor" min="0" max="1"></genModel>
+                <genModel modelType="eyeLashes" min="0" max="1"></genModel>
+                <genModel modelType="eyeShadows_L0" min="0" max="1"></genModel>
+                <genModel modelType="eyeShadows_L1" min="0" max="1"></genModel>
+                <genModel modelType="eyeShadows_L2" min="0" max="1"></genModel>
+                <genModel modelType="lipLayer" min="0" max="5"></genModel>
+                <genModel modelType="lipLUT" min="0" max="1"></genModel>
+                <genModel modelType="lip_twinkle" min="0" max="1"></genModel>
+                <genModel modelType="lip_glow" min="0" max="1"></genModel>
+            </childGenModels>
+        </genModel>
+        <genModel modelType="blush">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                print("Complete Remove")
+                end
+                end
+            </handler>
+            <code type="initialize">
+                    ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, blendMode)}^
+                </code>
+            <code type="frameReady"></code>
+            <code type="paramType">cheek</code>
+            <code type="propertyConfig">
+                BLUSH = {
+                Light1 = 101,
+                Light2 = 102,
+                Edge1 = 103,
+                Edge2 = 104,
+                Edge3 = 105,
+                Edge4 = 106,
+                Apple1 = 107,
+                Apple2 = 108,
+                Apple3 = 109,
+                Apple4 = 110
+                }
+            </code>
+            <properties>
+                <property name="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Light1</element>
+                        <element>Light2</element>
+                        <element>Edge1</element>
+                        <element>Edge2</element>
+                        <element>Edge3</element>
+                        <element>Edge4</element>
+                        <element>Apple1</element>
+                        <element>Apple2</element>
+                        <element>Apple3</element>
+                        <element>Apple4</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.BLUSH, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.BLUSH, BLUSH.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        if "^{type}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.BLUSH, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.BLUSH, BLUSH.^{type}^, ^{self}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        blushStrength = ^{self}^
+                        makeup_param.cheek = blushStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="contour">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/contour_builtin") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/contour_builtin", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("File Removed")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodStringForContour(modelType, type, resourceName, BlendMode.SoftLight)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">faceContour</code>
+            <code type="propertyConfig">
+                CONTOUR = {
+                    Sharp = 101,
+                    Glamour = 102,
+                    Nose = 103,
+                    Highlight = 104,
+                    Round = 105,
+                    Square = 106,
+                    Long = 107
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Glamour</element>
+                        <element>Sharp</element>
+                        <element>Glamour</element>
+                        <element>Nose</element>
+                        <element>Highlight</element>
+                        <element>Round</element>
+                        <element>Square</element>
+                        <element>Long</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.CONTOUR, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", BlendMode.SoftLight)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.CONTOUR, CONTOUR.^{self}^, BlendMode.SoftLight)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        contourStrength = ^{self}^
+                        makeup_param.faceContour = contourStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeLine">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/eye_liner") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/eye_liner", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, blendMode)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeLiner</code>
+            <code type="propertyConfig">
+                EYELINER = {
+                    BR1 = 101,
+                    BR2 = 102,
+                    BR3 = 103,
+                    BK1 = 104,
+                    BK2 = 105,
+                    BK3 = 106,
+                    BK4 = 107,
+                    BK5 = 108
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>BR1</element>
+                        <element>BR2</element>
+                        <element>BR3</element>
+                        <element>BK1</element>
+                        <element>BK2</element>
+                        <element>BK3</element>
+                        <element>BK4</element>
+                        <element>BK5</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELINER, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYELINER, EYELINER.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        if "^{type}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELINER, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{self}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYELINER, EYELINER.^{type}^, ^{self}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeLineStrength = ^{self}^
+                        makeup_param.eyeLiner = eyeLineStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eye_liner">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeBrows">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, blendMode)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeBrow</code>
+            <code type="propertyConfig">
+                EYEBROWS = {
+                    BK1 = 101,
+                    DB1 = 102,
+                    LB1 = 103,
+                    BK2 = 104,
+                    DB2 = 105,
+                    LB2 = 106,
+                    BK3 = 107,
+                    DB3 = 108,
+                    BK4 = 109,
+                    DB4 = 110
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>BK1</element>
+                        <element>DB1</element>
+                        <element>LB1</element>
+                        <element>BK2</element>
+                        <element>DB2</element>
+                        <element>LB2</element>
+                        <element>BK3</element>
+                        <element>DB3</element>
+                        <element>BK4</element>
+                        <element>DB4</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYEBROWS, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYEBROWS, EYEBROWS.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        if "^{type}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYEBROWS, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{self}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYEBROWS, EYEBROWS.^{type}^, ^{self}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeBrowsStrength = ^{self}^
+                        makeup_param.eyeBrow = eyeBrowsStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeLashes">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/eyelashes") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/eyelashes", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, blendMode)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeLashes</code>
+            <code type="propertyConfig">
+                EYELASHES = {
+                    Lash1 = 101,
+                    Lash2 = 102,
+                    Lash3 = 103,
+                    Lash4 = 104,
+                    Lash5 = 105
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Lash1</element>
+                        <element>Lash2</element>
+                        <element>Lash3</element>
+                        <element>Lash4</element>
+                        <element>Lash5</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELASHES, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYELASHES, EYELASHES.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        if "^{type}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELASHES, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{self}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYELASHES, EYELASHES.^{type}^, ^{self}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeLashesStrength = ^{self}^
+                        makeup_param.eyeLashes = eyeLashesStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eyelashes">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeColor">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+
+                if AppFileExist(BASE_DIRECTORY .. "images/eye_color_0001") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "eye_color_0001_sample/", BASE_DIRECTORY .. "images/eye_color_0001/")
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, BlendMode.None)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">colorLens</code>
+            <code type="propertyConfig">
+                EYE_COLOR = {
+                    Oasis = 1,
+                    Moist = 2,
+                    Crystal = 3,
+                    Gray = 4,
+                    Brown = 5,
+                    Blue = 6,
+                    Crystal2 = 101,
+                    Hazel = 102,
+                    Gray2 = 103,
+                    Berry = 104,
+                    Indigo = 105
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Oasis</element>
+                        <element>Moist</element>
+                        <element>Crystal</element>
+                        <element>Gray</element>
+                        <element>Brown</element>
+                        <element>Blue</element>
+                        <element>Crystal2</element>
+                        <element>Hazel</element>
+                        <element>Gray2</element>
+                        <element>Berry</element>
+                        <element>Indigo</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYE_COLOR, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", BlendMode.None)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYE_COLOR, EYE_COLOR.^{self}^, BlendMode.None)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeColorStrength = ^{self}^
+                        makeup_param.colorLens = eyeColorStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eye_color_0001">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeShadows_L0">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/eye_shadow_L0") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/eye_shadow_L0", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodStringForEyeShadow(modelType, type, resourceName, blendMode, animation)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeShadowLayer0</code>
+            <code type="propertyConfig">
+                EYESHADOW_LAYER0 = {
+                    Pink = 101,
+                    Orange = 102,
+                    Brown = 103,
+                    Coral = 104,
+                    Smokey = 105
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Pink</element>
+                        <element>Orange</element>
+                        <element>Brown</element>
+                        <element>Coral</element>
+                        <element>Smokey</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYESHADOW_LAYER0, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYESHADOW_LAYER0, EYESHADOW_LAYER0.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode"></property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeShadows_L0Strength = ^{self}^
+                        makeup_param.eyeShadowLayer0 = eyeShadows_L0Strength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eye_shadow_L0">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+                <property name ="animation" type="enum" default="Single">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                    <enum>
+                        <element>Single</element>
+                        <element>Sequence</element>
+                    </enum>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeShadows_L1">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/eye_shadow_L1") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/eye_shadow_L1", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodStringForEyeShadow(modelType, type, resourceName, blendMode, animation)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeShadowLayer1</code>
+            <code type="propertyConfig">
+                EYESHADOW_LAYER1 = {
+                    Pink = 101,
+                    Orange = 102
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Pink</element>
+                        <element>Orange</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYESHADOW_LAYER1, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYESHADOW_LAYER1, EYESHADOW_LAYER1.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode"></property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeShadows_L1Strength = ^{self}^
+                        makeup_param.eyeShadowLayer1 = eyeShadows_L1Strength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eye_shadow_L1">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+                <property name ="animation" type="enum" default="Single">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                    <enum>
+                        <element>Single</element>
+                        <element>Sequence</element>
+                    </enum>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeShadows_L2">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/eye_shadow_L2") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/eye_shadow_L2", true)
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodStringForEyeShadow(modelType, type, resourceName, blendMode, animation)}^
+            </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeShadowLayer2</code>
+            <code type="propertyConfig">
+                EYESHADOW_LAYER2 = {
+                    Pink = 101,
+                    Orange = 102
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>Pink</element>
+                        <element>Orange</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYESHADOW_LAYER2, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.EYESHADOW_LAYER2, EYESHADOW_LAYER2.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode"></property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeShadows_L2Strength = ^{self}^
+                        makeup_param.eyeShadowLayer2 = eyeShadows_L2Strength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eye_shadow_L2">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+                <property name ="animation" type="enum" default="Single">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                    <enum>
+                        <element>Single</element>
+                        <element>Sequence</element>
+                    </enum>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="lipLayer">
+            <code type="initialize">
+                ^{parentDataModel.name}^:addLipLayer(BASE_DIRECTORY .. "^{resourceName}^", ^{blendMode}^)
+            </code>
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+                
+                if AppFileExist(BASE_DIRECTORY .. "images/lipLayer.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipLayer/lipLayer_sample.png", BASE_DIRECTORY .. "images/lipLayer.png")
+                end
+
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "images/" .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/" .. "^{resourceName}^") == true then
+                        print("lipGloss_mask remove complete")
+                    end
+                end
+            </handler>
+            <code type="frameReady"></code>
+            <properties>
+                <property name ="blendMode" type="BlendMode"></property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        ^{name}^Strength = ^{self}^
+                        ^{parentDataModel.name}^:setLipLayerStrength(^{_getIndexLiplayer(parentDataModel.dataModels, name)}^, ^{name}^Strength * appStrength)
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="lipLayer.png"></property>
+            </properties>
+        </genModel>
+        <genModel modelType="lipLUT">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipLUT_default.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipLUT/lipLUT_default_sample.png", BASE_DIRECTORY .. "images/lipLUT_default.png")
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+
+                if AppFileExist(BASE_DIRECTORY .. "images/lipLutMask") == true then
+                    AppRemoveItem(BASE_DIRECTORY .. "images/lipLutMask")
+                end
+            </handler>
+            <code type="initialize">
+                ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, type, resourceName, blendMode)}^
+                ^{_getSetLipMaskPathMethodString(lipMaskType)}^
+            </code>
+            <code type="paramType">lip</code>
+            <code type="frameReady"></code>
+            <code type="propertyConfig">
+                LIP_COLOR = {
+                    Coral = 101,
+                    Peach = 102,
+                    Pink = 103,
+                    Orange = 104,
+                    Red = 105,
+                    Red2 = 106,
+                    Orange2 = 107,
+                    Pink2 = 108,
+                    Pink3 = 109,
+                    Plum = 110,
+                    Brick = 111
+                }
+                
+                LIP_MASK_TYPE = {
+                    DEFAULT = 0,
+                    GRADATION_A = 1,
+                    GRADATION_B = 2,
+                    GRADAtION_C = 3,
+                    FULL = 4,
+                    SMUDGE = 5
+                }
+            </code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage" isNeedToGenerate="true">
+                    <enum>
+                        <element>Coral</element>
+                        <element>Peach</element>
+                        <element>Pink</element>
+                        <element>Oragne</element>
+                        <element>Red</element>
+                        <element>Red2</element>
+                        <element>Orange2</element>
+                        <element>Pink2</element>
+                        <element>Pink3</element>
+                        <element>Plum</element>
+                        <element>Brick</element>
+                        <element>CustomImage</element>
+                    </enum>
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.LIP_COLOR, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.LIP_COLOR, LIP_COLOR.^{self}^, ^{blendMode}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        if "^{self}^" == "CustomImage" then
+                            ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.LIP_COLOR, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{self}^)
+                        else
+                            ^{parentDataModel.name}^:setPathAndBlendModeById(KuruMakeupNodeType.LIP_COLOR, LIP_COLOR.^{type}^, ^{self}^)
+                        end
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        lipLUTStrength = ^{self}^
+                        makeup_param.lip = lipLUTStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="lipLUT_default.png">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                </property>
+                <property name ="localLip" type="localLip">
+                    <isHidden>"^{type}^" == "CustomImage"</isHidden>
+                    <handler type="preUpdate">
+                        if AppFileExist(LOCAL_LIP_DIRECTORY .. "^{localLip}^") == true then
+                            if AppFileExist(BASE_DIRECTORY .. "images/lipLUT_default.png") == true then
+                                AppRemoveItem(BASE_DIRECTORY .. "images/lipLUT_default.png")
+                            end
+
+                            AppFileCopy(LOCAL_LIP_DIRECTORY .. "^{localLip}^", BASE_DIRECTORY .. "images/lipLUT_default.png")
+                        end
+                    </handler>
+                </property>
+                <property name ="lipMaskType" type="enum" isNeedToGenerate="true">
+                    <enum>
+                        <element>DEFAULT</element>
+                        <element>GRADATION_A</element>
+                        <element>GRADATION_B</element>
+                        <element>GRADATION_C</element>
+                        <element>FULL</element>
+                        <element>SMUDGE</element>
+                    </enum>
+                    <handler type="preUpdate">
+                        if "^{lipMaskType}^" == "DEFAULT" or "^{lipMaskType}^" == "GRADATION_A" or "^{lipMaskType}^" == "GRADATION_B" then
+                            AppRemoveItem(BASE_DIRECTORY .. "images/lipLutMask")
+                        elseif "^{lipMaskType}^" == "GRADATION_C" or "^{lipMaskType}^" == "FULL" or "^{lipMaskType}^" == "SMUDGE" then
+                            if AppFileExist(BASE_DIRECTORY .. "images/lipLutMask") == false then
+                                AppCreateDirectory(BASE_DIRECTORY .. "images/lipLutMask", true)
+                            else
+                                AppRemoveItem(BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_gradation_c.png")
+                                AppRemoveItem(BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_full.png")
+                                AppRemoveItem(BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_smudge.png")
+                            end
+
+                            if "^{lipMaskType}^" == "GRADATION_C" then
+                                maskPath = "lipLUT/mask/lipmask_builtin_gradationc.png"
+                                AppFileCopy(SAMPLE_DIRECTORY .. maskPath, BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_gradation_c.png")
+                            elseif "^{lipMaskType}^" == "FULL" then
+                                maskPath = "lipLUT/mask/lipmask_builtin_full.png"
+                                AppFileCopy(SAMPLE_DIRECTORY .. maskPath, BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_full.png")
+                            elseif "^{lipMaskType}^" == "SMUDGE" then
+                                maskPath = "lipLUT/mask/lipmask_builtin_smudge.png"
+                                AppFileCopy(SAMPLE_DIRECTORY .. maskPath, BASE_DIRECTORY .. "images/lipLutMask/lipLutMask_smudge.png")
+                            end
+                        end
+                    </handler>
+                </property>
+            </properties>
+        </genModel>
+        <genModel modelType="lip_twinkle">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/lipGlossTwinkle", true)
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkleGradationMask.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossTwinkle/lipGlossTwinkleGradationMask.png", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationMask.png")
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/blurMask.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossTwinkle/blurMask.png", BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png")
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossTwinkle/lipGlossTwinkleMask.dat", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat")
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkleGradationLUT.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossTwinkle/lipGlossTwinkleGradationLUT.png", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationLUT.png")
+                end
+            </handler>
+            <handler type="delete">
+
+                if AppFileExist(BASE_DIRECTORY .. "^{gradationMask}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{gradationMask}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationMask.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationMask.png") == true then
+                        print("lipGloss_mask remove complete")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png") == true then
+                        print("blurMask remove complete")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat") == true then
+                        print("lipGloss_mask remove complete")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationLUT.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationLUT.png") == true then
+                        print("lipGloss_lut remove complete")
+                    end
+                end
+            </handler>
+            <properties>
+                <property name ="blurMask" type="resource" default="blurMask.png">
+                    <setterString>
+                        ^{parentDataModel.name}^:setLipBlurMaskPath(BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png")
+                    </setterString>
+                </property>
+                <property name ="gradationMask" type="resource" default="lipGlossTwinkleGradationMask.png">
+                    <setterString>
+                        ^{parentDataModel.name}^:set3DLipgloss(BASE_DIRECTORY .. "^{_getLipglossTwinkleResourcePath(gradationMask)}^", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationLUT.png")
+                        highlightNode = ^{parentDataModel.name}^:getLipHighlightNode()
+                    </setterString>
+                </property>
+                <property name="usesLipBlur" type="bool" default="true"></property>
+                <property name="clampPowMaxYaw" type="float" default="47.25" min="45.0" max="89.0">
+                    <setterString>
+                        clampPowMaxYaw = ^{self}^
+                        makeup_param.clampPowMaxYaw = clampPowMaxYaw
+                    </setterString>
+                </property>
+                <property name="clampLinearMaxYaw" type="float" default="76.5" min="45.0" max="90.0">
+                    <setterString>
+                        clampLinearMaxYaw = ^{self}^
+                        makeup_param.clampLinearMaxYaw = clampLinearMaxYaw
+                    </setterString>
+                </property>
+                <property name="lipBlurStrength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        lipBlurStrength = ^{self}^
+                        makeup_param.lipBlurStrength = lipBlurStrength
+                    </setterString>
+                </property>
+                <property name ="lipGlossSpecPowFactor" type="float" default="0.61" min="0.0" max="1.0">
+                    <setterString>
+                        lipGlossSpecPowFactor = ^{self}^
+                        makeup_param.lipGlossSpecPowFactor = lipGlossSpecPowFactor * 14.4
+                    </setterString>
+                </property>
+                <property name ="lipGlossStrength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        lipGlossStrength = ^{self}^
+                        makeup_param.lipgloss3d =  lipGlossStrength
+                    </setterString>
+                </property>
+                
+                <property name ="afterBlurStrength" type="float" default="0.01" min="0.0" max="1.0">
+                    <setterString>
+                        afterBlurStrength = ^{self}^
+                        makeup_param.afterBlurStrength = afterBlurStrength
+                    </setterString>
+                </property>
+
+                
+            </properties>
+            <code type="initialize">
+                ^{parentDataModel.name}^:set3DLipgloss(BASE_DIRECTORY .. "^{_getLipglossTwinkleResourcePath(gradationMask)}^", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleMask.dat", BASE_DIRECTORY .. "images/lipGlossTwinkle/lipGlossTwinkleGradationLUT.png")
+                highlightNode = ^{parentDataModel.name}^:getLipHighlightNode()
+                
+                -- 커스팀 립클로즈 blur mask를 사용하고 싶은 경우
+                if (^{parentDataModel.name}^["setLipBlurMaskPath"] ~= nil) then
+                ^{parentDataModel.name}^:setLipBlurMaskPath(BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png")
+                end
+            </code>
+            <code type="frameReady"></code>
+        </genModel>
+        <genModel modelType="lip_glow">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images/lipGlossGlow", true)
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowMask.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossGlow/lipGlossGlowMask.png", BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowMask.png")
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/blurMask.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossGlow/blurMask.png", BASE_DIRECTORY .. "images/lipGlossGlow/blurMask.png")
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "lipGlossGlow/lipGlossGlowLUT.png", BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png")
+                end
+            </handler>
+            <handler type="delete">
+
+                if AppFileExist(BASE_DIRECTORY .. "^{gradationMask}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{gradationMask}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowMask.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowMask.png") == true then
+                        print("lipGloss_mask remove complete")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow/blurMask.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossGlow/blurMask.png") == true then
+                        print("blurMask remove complete")
+                    end
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png") == true then
+                        print("lipGloss_lut remove complete")
+                    end
+                end
+            </handler>
+            <properties>
+                <property name ="blurMask" type="resource" default="blurMask.png">
+                    <setterString>
+                        ^{parentDataModel.name}^:setLipBlurMaskPath(BASE_DIRECTORY .. "images/lipGlossTwinkle/blurMask.png")
+                    </setterString>
+                </property>
+                <property name ="gradationMask" type="resource" default="lipGlossGlowMask.png">
+                    <setterString>
+                        ^{parentDataModel.name}^:set3DLipgloss(BASE_DIRECTORY .. "^{_getLipglossGlowResourcePath(gradationMask)}^", BASE_DIRECTORY .. "^{_getLipglossGlowResourcePath(gradationMask)}^", BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png")
+                        highlightNode = ^{parentDataModel.name}^:getLipHighlightNode()
+                    </setterString>
+                </property>
+                <property name ="usesLipBlur" type="bool" default="true"></property>
+                <property name="clampPowMaxYaw" type="float" default="48.15" min="45.0" max="89.0">
+                    <setterString>
+                        clampPowMaxYaw = ^{self}^
+                        makeup_param.clampPowMaxYaw = clampPowMaxYaw
+                    </setterString>
+                </property>
+                <property name="clampLinearMaxYaw" type="float" default="45.0" min="45.0" max="90.0">
+                    <setterString>
+                        clampLinearMaxYaw = ^{self}^
+                        makeup_param.clampLinearMaxYaw = clampLinearMaxYaw
+                    </setterString>
+                </property>
+                <property name="lipBlurStrength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        lipBlurStrength = ^{self}^
+                        makeup_param.lipBlurStrength = lipBlurStrength
+                    </setterString>
+                </property>
+
+                <property name ="lipGlossSpecPowFactor" type="float" default="0.7" min="0.0" max="1.0">
+                    <setterString>
+                        lipGlossSpecPowFactor = ^{self}^
+                        makeup_param.lipGlossSpecPowFactor = lipGlossSpecPowFactor * 14.4
+                    </setterString>
+                </property>
+                
+                <property name ="lipGlossSpecFactor" type="float" default="0.75" min="0.0" max="1.0">
+                    <setterString>
+                        lipGlossSpecFactor = ^{self}^
+                        makeup_param.lipGlossSpecFactor = lipGlossSpecFactor * 400
+                    </setterString>
+                </property>
+
+                <property name ="lipGlossStrength" type="float" default="0.6" min="0.0" max="1.0">
+                    <setterString>
+                        lipGlossStrength = ^{self}^
+                        makeup_param.lipgloss3d =  lipGlossStrength
+                    </setterString>
+                </property>
+
+                <property name ="lipGloss3dRoughness" type="float" default="0.85" min="0.0" max="1.0">
+                    <setterString>
+                        lipGloss3dRoughness = ^{self}^
+                        makeup_param.lipGloss3dRoughness =  lipGloss3dRoughness
+                    </setterString>
+                </property>
+
+                <property name ="afterBlurStrength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        afterBlurStrength = ^{self}^
+                        makeup_param.afterBlurStrength = afterBlurStrength
+                    </setterString>
+                </property>
+
+                
+            </properties>
+            <code type="initialize">
+                ^{parentDataModel.name}^:set3DLipgloss(BASE_DIRECTORY .. "^{_getLipglossGlowResourcePath(gradationMask)}^", BASE_DIRECTORY .. "^{_getLipglossGlowResourcePath(gradationMask)}^", BASE_DIRECTORY .. "images/lipGlossGlow/lipGlossGlowLUT.png")
+                highlightNode = ^{parentDataModel.name}^:getLipHighlightNode()
+                
+                -- 커스팀 립클로즈 blur mask를 사용하고 싶은 경우
+                if (^{parentDataModel.name}^["setLipBlurMaskPath"] ~= nil) then
+                ^{parentDataModel.name}^:setLipBlurMaskPath(BASE_DIRECTORY .. "images/lipGlossGlow/blurMask.png")
+                end
+
+            </code>
+            <code type="frameReady"></code>
+        </genModel>
+        <genModel modelType="eyeLid">
+            <handler type="create">
+                if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                    AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+                end
+                if AppFileExist(BASE_DIRECTORY .. "images/eyelid.png") == false then
+                    AppFileCopy(SAMPLE_DIRECTORY .. "eyelid/eyelid.png", BASE_DIRECTORY .. "images/eyelid_default.png")
+                end
+            </handler>
+            <handler type="delete">
+                if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                    if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                        print("Complete Remove")
+                    end
+                end
+            </handler>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeLid</code>
+            <properties>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                        ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELID, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{self}^)
+                        ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                    </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                        eyeLidStrength = ^{self}^
+                        makeup_param.eyeLid = eyeLidStrength * appStrength
+                    </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default="eyelid_default.png"/>
+            </properties>
+            <code type="initialize">
+                ^{parentDataModel.name}^:setPathAndBlendMode(KuruMakeupNodeType.EYELID, BASE_DIRECTORY .. "^{_getResourcePath(modelType, resourceName)}^", ^{blendMode}^)
+            </code>
+        </genModel>
+        <genModel modelType="eyeBrowLayer0">
+            <handler type="create">
+               if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                   AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+               end
+           </handler>
+            <handler type="delete">
+               if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                   if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                       print("Complete Remove")
+                   end
+               end
+           </handler>
+            <code type="initialize">
+               ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+           </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeBrowLayer0</code>
+            <code type="propertyConfig"></code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>CustomImage</element>
+                    </enum>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                       ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+                       ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                   </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                       eyeBrowLayer0Strength = ^{self}^
+                       makeup_param.eyeBrowLayer0 = eyeBrowLayer0Strength * appStrength
+                   </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default=""></property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeBrowLayer1">
+            <handler type="create">
+              if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                  AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+              end
+          </handler>
+            <handler type="delete">
+              if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                  if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                      print("Complete Remove")
+                  end
+              end
+          </handler>
+            <code type="initialize">
+              ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+          </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeBrowLayer1</code>
+            <code type="propertyConfig"></code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>CustomImage</element>
+                    </enum>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                       ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+                       ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                  </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                      eyeBrowLayer1Strength = ^{self}^
+                      makeup_param.eyeBrowLayer1 = eyeBrowLayer1Strength * appStrength
+                  </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default=""></property>
+            </properties>
+        </genModel>
+        <genModel modelType="eyeBrowLayer2">
+            <handler type="create">
+              if AppFileExist(BASE_DIRECTORY .. "images") == false then
+                  AppCreateDirectory(BASE_DIRECTORY .. "images", true)
+              end
+          </handler>
+            <handler type="delete">
+              if AppFileExist(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                  if AppRemoveItem(BASE_DIRECTORY .. "^{resourceName}^") == true then
+                      print("Complete Remove")
+                  end
+              end
+          </handler>
+            <code type="initialize">
+              ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+          </code>
+            <code type="frameReady"></code>
+            <code type="paramType">eyeBrowLayer2</code>
+            <code type="propertyConfig"></code>
+            <properties>
+                <property name ="type" type="enum" default="CustomImage">
+                    <enum>
+                        <element>CustomImage</element>
+                    </enum>
+                </property>
+                <property name ="blendMode" type="BlendMode">
+                    <setterString>
+                       ^{parentDataModel.name}^:^{_getSetPathMethodString(modelType, CustomImage, resourceName, blendMode, 0)}^
+                       ^{parentDataModel.name}^:setSnapshotTypeInfos()
+                  </setterString>
+                </property>
+                <property name ="strength" type="float" default="1.0" min="0.0" max="1.0">
+                    <setterString>
+                      eyeBrowLayer2Strength = ^{self}^
+                      makeup_param.eyeBrowLayer2 = eyeBrowLayer2Strength * appStrength
+                  </setterString>
+                </property>
+                <property name ="resourceName" type="resource" default=""></property>
+            </properties>
+        </genModel>
+    </genModels>
+</genRule>

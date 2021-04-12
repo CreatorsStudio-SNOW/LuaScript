@@ -1,0 +1,111 @@
+{
+  "version" : "2.4.2",
+  "templateName" : "Makeup",
+  "editableProperties" : {
+
+  },
+  "dataModels" : [
+    {
+      "modelType" : "makeup",
+      "maxStrength" : 1,
+      "name" : "makeup0",
+      "modelName" : "",
+      "aliases" : "makeup",
+      "useAppSlider" : true,
+      "sliderType" : "stickerSliderValue",
+      "dataModels" : [
+        {
+          "strength" : 0.35999998450279236,
+          "name" : "makeup0_contour0",
+          "type" : "CustomImage",
+          "modelType" : "contour",
+          "modelName" : "",
+          "resourceName" : "contour.jpg",
+          "aliases" : "contour"
+        },
+        {
+          "modelType" : "blush",
+          "blendMode" : "BlendMode.None",
+          "aliases" : "blush",
+          "resourceName" : "blush.png",
+          "strength" : 0.35999998450279236,
+          "modelName" : "",
+          "type" : "CustomImage",
+          "name" : "makeup0_blush1"
+        },
+        {
+          "name" : "makeup0_eyeBrowLayer12",
+          "resourceName" : "eyebrows.png",
+          "modelType" : "eyeBrowLayer1",
+          "aliases" : "eyeBrowLayer1",
+          "modelName" : "",
+          "blendMode" : "BlendMode.Multiply",
+          "strength" : 0.19999998807907104,
+          "type" : "CustomImage"
+        },
+        {
+          "modelType" : "eyeColor",
+          "modelName" : "",
+          "strength" : 1,
+          "aliases" : "eyeColor",
+          "type" : "CustomImage",
+          "resourceName" : "eye_color_0001",
+          "name" : "makeup0_eyeColor3"
+        },
+        {
+          "type" : "CustomImage",
+          "modelType" : "eyeLashes",
+          "blendMode" : "BlendMode.Multiply",
+          "resourceName" : "eyelashes",
+          "modelName" : "",
+          "name" : "makeup0_eyeLashes4",
+          "aliases" : "eyeLashes",
+          "strength" : 0.38999998569488525
+        },
+        {
+          "resourceName" : "eye_liner",
+          "name" : "makeup0_eyeLine5",
+          "aliases" : "eyeLine",
+          "modelType" : "eyeLine",
+          "type" : "CustomImage",
+          "strength" : 0.34999999403953552,
+          "modelName" : "",
+          "blendMode" : "BlendMode.Multiply"
+        },
+        {
+          "modelType" : "eyeShadows_L0",
+          "resourceName" : "eye_shadow_L0",
+          "strength" : 0.34999999403953552,
+          "blendMode" : "BlendMode.Multiply",
+          "name" : "makeup0_eyeShadows_L06",
+          "animation" : "Single",
+          "type" : "CustomImage",
+          "modelName" : "",
+          "aliases" : "eyeShadows_L0"
+        },
+        {
+          "blendMode" : "BlendMode.Multiply",
+          "resourceName" : "eye_shadow_L1",
+          "modelType" : "eyeShadows_L1",
+          "modelName" : "",
+          "name" : "makeup0_eyeShadows_L17",
+          "animation" : "Single",
+          "type" : "CustomImage",
+          "strength" : 0.45999997854232788,
+          "aliases" : "eyeShadows_L1"
+        },
+        {
+          "modelType" : "lipLayer",
+          "strength" : 1,
+          "resourceName" : "liplayer.png",
+          "blendMode" : "BlendMode.None",
+          "modelName" : "",
+          "aliases" : "lipLayer",
+          "name" : "makeup0_lipLayer8"
+        }
+      ],
+      "minStrength" : 0,
+      "appSlider" : 100
+    }
+  ]
+}

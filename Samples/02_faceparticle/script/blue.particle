@@ -1,0 +1,39 @@
+particle blue
+{
+    sprite
+    {
+        path = img/2.png
+        width = 366
+        height = 366
+        blendMode = Normal
+        animated = true
+        looped = true
+        frameCount = 1
+        frameRandomOffset = 0
+        frameDuration = 0
+    }
+    particleCountMax = 100
+    emissionRate = 10
+    ellipsoid = true
+    orbitPosition = true
+    orbitVelocity = true
+    orbitAcceleration = true
+    sizeStartMin = 80
+    sizeStartMax = 80
+    sizeEndMin = 80
+    sizeEndMax = 80
+    energyMin = 2000
+    energyMax = 5000
+    colorStart = 1.0, 1.0, 1.0, 1.0
+    colorStartVar = 0.0, 0.0, 0.0, 1.0
+    colorEnd = 1.0, 1.0, 1.0, 1.0
+    colorEndVar = 0, 0, 0, 0.0
+    position = 0, 0, 0
+    positionVar = 300, 20, 0
+    velocity = 0, 120, 0
+    velocityVar = 80, 0, 0
+    acceleration = 0, 0, 0
+    accelerationVar = 0, 0, 0
+    rotationPerParticleSpeedMin = 0
+    rotationPerParticleSpeedMax = 0
+}

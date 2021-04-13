@@ -1,0 +1,16 @@
+{
+  "result" : {
+    "distortionType" : 31,
+    "items" : [
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "resourceName" : "script.zip"
+      }
+    ],
+    "name" : "03_segmentation",
+    "noFilterOnSticker" : true,
+    "renderByOrder" : true,
+    "resourceEncryption" : false
+  }
+}

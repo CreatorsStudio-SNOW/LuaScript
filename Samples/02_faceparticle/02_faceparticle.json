@@ -1,0 +1,17 @@
+{
+  "result" : {
+    "distortionType" : 31,
+    "items" : [
+      {
+        "drawType" : "SCRIPT",
+        "fps" : 20,
+        "resourceName" : "script.zip",
+        "triggerType" : "ALWAYS"
+      }
+    ],
+    "name" : "02_faceparticle",
+    "noFilterOnSticker" : true,
+    "renderByOrder" : true,
+    "resourceEncryption" : false
+  }
+}

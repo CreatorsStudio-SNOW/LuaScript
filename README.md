@@ -18,11 +18,11 @@ $ cp ./tools/vsSnippets/* ~/Library/Application\ Support/Code/User/snippets
 
 <details>
   <summary>Samples</summary>
-  - Sample 01 - BackgroundImage, FaceSticker, TouchEvent<br>
-  - Sample 02<br>
-  - Sample 03<br>  
-  - Sample 04<br>  
-  - Sample 05<br>  
+  <ol>
+  <li>Sample 01 에서는 기본적인 Scene구조와 script에서 B Type, F Type 노드를 삽입하고 TouchEvent를 통한 제어하는 방법을 배웁니다.</li>
+  <li>Sample 02 에서는 얼굴마다 다른 시나리오를주고싶을경우에 필요한 onPreRender 콜백에 대하여 FaceParticle예제를 통해 배웁니다.</li>
+  <li>Sample 03 에서는 SnapshotNode, FrameBufferNode, ShaderNode, SegmentationNode를 이용한 예제를 통해 씬을 좀더 자유롭게 다루는법을 배웁니다.</li>
+  </ol>
 </details>
 
 ## Coding Convention

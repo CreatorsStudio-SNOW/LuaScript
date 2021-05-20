@@ -8,7 +8,6 @@ precision mediump float;
 #endif
 #endif
 
-uniform sampler2D u_texture;
 uniform sampler2D u_samplers[MAX_COUNT];
 varying vec2 v_texCoord;
 
@@ -18,7 +17,6 @@ uniform vec2 u_positions[MAX_COUNT];
 uniform vec2 u_sizes[MAX_COUNT];
 uniform vec2 u_anchors[MAX_COUNT];
 uniform vec2 u_scales[MAX_COUNT];
-/* uniform mat4 u_maxtrix[MAX_COUNT]; */
 
 void main()
 {
@@ -31,9 +29,6 @@ void main()
       && v_texCoord.x < maxX && v_texCoord.y < maxY)
     {
       vec2 fragUV = v_texCoord;
-      /* fragUV.x -= u_positions[i].x;
-      fragUV.y -= u_positions[i].y; */
-
       fragUV.x -= u_positions[i].x;
       fragUV.y -= u_positions[i].y;
 
@@ -49,9 +44,6 @@ void main()
       gl_FragColor = texture2D(u_samplers[i], fragUV);
       return;
     }
-    /* vec4 fragUV = u_fragMat * vec4(v_texCoord, 0.0, 1.0); */
-    /* gl_FragColor = texture2D(u_texture, v_texCoord); */
-      /* gl_FragColor = vec4(u_bgColor, 1.0); */
   }
 
   gl_FragColor = u_bgColor;

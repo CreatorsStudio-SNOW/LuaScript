@@ -1,0 +1,22 @@
+{
+  "result": {
+    "customizedTooltip": "",
+    "items": [
+      {
+        "config": {},
+        "drawType": "SCRIPT",
+        "fps": 20,
+        "resourceName": "script.zip",
+        "resourceType": "SEQUENCE",
+        "shouldNotDecrypt": true
+      }
+    ],
+    "kadianSingleOption": true,
+    "maleMakeupOptimization": true,
+    "modifiedDate": 0,
+    "name": "CELayout",
+    "skipOptimizationOnResource": true,
+    "stickerId": -1,
+    "useLip240": true
+  }
+}

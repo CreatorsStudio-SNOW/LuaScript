@@ -1,19 +1,19 @@
 -- Update Date : 200731
--- writer : Sangcheol Jeon
+-- Author : Charlie
 
-CECollage = {
+CELayout = {
   COMPOSITION = nil,
   baseSampler = nil,
   bufferNode = nil,
   layoutList = {},
   samplerList = {},
-  materialList = {},
+  materialList = {}
 }
-CECollage.__index = CECollage
+CELayout.__index = CELayout
 
-function CECollage:new(scene, baseSampler, compositionSetting)
+function CELayout:new(scene, baseSampler, compositionSetting)
   local newObject = {}
-  setmetatable(newObject, CECollage)
+  setmetatable(newObject, CELayout)
 
   newObject.baseSampler = baseSampler
   newObject.COMPOSITION = compositionSetting
@@ -28,11 +28,11 @@ function CECollage:new(scene, baseSampler, compositionSetting)
   return newObject
 end
 
-function CECollage:setCollageLayer(layerInfo)
-  return self:setCollageLayerWithSampler(self.baseSampler, layerInfo)
+function CELayout:setLayer(layerInfo)
+  return self:setLayerWithSampler(self.baseSampler, layerInfo)
 end
 
-function CECollage:setCollageLayerWithSampler(sampler, layerInfo)
+function CELayout:setLayerWithSampler(sampler, layerInfo)
   local layout = {}
 
   layout["position"] = layerInfo.position
@@ -46,39 +46,42 @@ function CECollage:setCollageLayerWithSampler(sampler, layerInfo)
   return self
 end
 
-function CECollage.shallowCopy(list, startOffset, endOffset)
+function CELayout.shallowCopy(list, startOffset, endOffset)
   local newList = {}
 
-  for i = startOffset, endOffset do
-    newList[#newList + 1] = list[i]
-  end
+  for i = startOffset, endOffset do newList[#newList + 1] = list[i] end
 
   return newList
 end
 
-function CECollage:build()
+function CELayout:build()
   local shaderNodeCount = math.ceil(#self.layoutList / 8)
 
   for i = 1, shaderNodeCount do
     local startOffset = (i - 1) * 8 + 1
-    local endOffset = #self.layoutList % 8 + math.floor(#self.layoutList / 8) * 8
+    local endOffset = #self.layoutList % 8 + math.floor(#self.layoutList / 8) *
+                          8
 
-    local lList = CECollage.shallowCopy(self.layoutList, startOffset, endOffset)
-    local lSamplers = CECollage.shallowCopy(self.samplerList, startOffset, endOffset)
+    local lList = CELayout.shallowCopy(self.layoutList, startOffset, endOffset)
+    local lSamplers = CELayout.shallowCopy(self.samplerList, startOffset,
+                                           endOffset)
 
     local quadFullMesh = Mesh.createQuadFullscreen()
     local model = Model.create(quadFullMesh)
     quadFullMesh:release()
 
-    local material = Material.createWithShaderFile("res/shaders/passthrough.vert", BASE_DIRECTORY .. "CECollage/div.frag", Nil)
-    material:getParameter("u_worldViewProjectionMatrix"):setMatrix(Matrix.createFromMatrix(Matrix.identity()))
+    local material = Material.createWithShaderFile(
+                         "res/shaders/passthrough.vert",
+                         BASE_DIRECTORY .. "CELayout/div.frag", Nil)
+    material:getParameter("u_worldViewProjectionMatrix"):setMatrix(
+        Matrix.createFromMatrix(Matrix.identity()))
 
     local blendSrc = RenderStateBlend.BLEND_SRC_ALPHA
     local stateBlock = material:getStateBlock()
     stateBlock:setBlend(true)
     stateBlock:setBlendSrc(blendSrc)
     stateBlock:setBlendDst(RenderStateBlend.BLEND_ONE_MINUS_SRC_ALPHA)
-    model:setMaterial(material, - 1)
+    model:setMaterial(material, -1)
     material:release()
     local node = KuruModelNode.createFromModel(model)
     model:release()
@@ -98,25 +101,23 @@ function CECollage:build()
   return self
 end
 
-function CECollage:setAllSamplers(sampler)
+function CELayout:setAllSamplers(sampler)
   self.baseSampler = sampler
-  for i, v in ipairs(self.samplerList) do
-    print(string.format("[[[[[[[[[[SCRIPT Error & Debug]]]]]]]]]] i = %s", i))
-    self.samplerList[i] = sampler
-  end
+  for i, v in ipairs(self.samplerList) do self.samplerList[i] = sampler end
 
   local shaderNodeCount = math.ceil(#self.layoutList / 8)
 
   for i = 1, shaderNodeCount do
     local startOffset = (i - 1) * 8 + 1
     local endOffset = i * 8
-    local lSamplers = CECollage.shallowCopy(self.samplerList, startOffset, endOffset)
+    local lSamplers = CELayout.shallowCopy(self.samplerList, startOffset,
+                                           endOffset)
 
     self.materialList[i]:getParameter("u_samplers"):setSamplerArray(lSamplers)
   end
 end
 
-function CECollage:setLayoutInfo(material, layoutList, samplers)
+function CELayout:setLayoutInfo(material, layoutList, samplers)
   material:getParameter("u_count"):setInt(#layoutList)
 
   local positions = {}
@@ -124,12 +125,32 @@ function CECollage:setLayoutInfo(material, layoutList, samplers)
   local anchors = {}
   local scales = {}
 
+  local scaleOneToOne = 1.0
+  local offsetOneToOne = 0.0
+  local config = KuruEngine.getInstance():getCameraConfig()
+
+  if not config:isGalleryMode() and config:isOneToOne() == true then
+    scaleOneToOne = 3.0 / 4.0
+    offsetOneToOne = 0.125
+  end
+
   for i = 1, #layoutList do
     local offsetX = (layoutList[i].size.width) / 2
     local offsetY = (layoutList[i].size.height) / 2
-    positions[i] = Vector2.create((layoutList[i].position.x - offsetX) / self.COMPOSITION.BG_SIZE.WIDTH, (layoutList[i].position.y - offsetY) / self.COMPOSITION.BG_SIZE.HEIGHT)
-    sizes[i] = Vector2.create(layoutList[i].size.width / self.COMPOSITION.BG_SIZE.WIDTH, layoutList[i].size.height / self.COMPOSITION.BG_SIZE.HEIGHT)
-    anchors[i] = Vector2.create(layoutList[i].anchor.x / self.COMPOSITION.BG_SIZE.WIDTH, layoutList[i].anchor.y / self.COMPOSITION.BG_SIZE.HEIGHT)
+    positions[i] = Vector2.create((layoutList[i].position.x - offsetX) /
+                                      self.COMPOSITION.BG_SIZE.WIDTH,
+                                  (layoutList[i].position.y - offsetY) /
+                                      self.COMPOSITION.BG_SIZE.HEIGHT *
+                                      scaleOneToOne + offsetOneToOne)
+    sizes[i] = Vector2.create(layoutList[i].size.width /
+                                  self.COMPOSITION.BG_SIZE.WIDTH, layoutList[i]
+                                  .size.height / self.COMPOSITION.BG_SIZE.HEIGHT *
+                                  scaleOneToOne)
+    anchors[i] = Vector2.create(-layoutList[i].anchor.x /
+                                    self.COMPOSITION.BG_SIZE.WIDTH,
+                                -layoutList[i].anchor.y /
+                                    self.COMPOSITION.BG_SIZE.HEIGHT *
+                                    scaleOneToOne)
     scales[i] = Vector2.create(layoutList[i].scale, layoutList[i].scale)
   end
 
@@ -140,6 +161,6 @@ function CECollage:setLayoutInfo(material, layoutList, samplers)
   material:getParameter("u_samplers"):setSamplerArray(samplers)
 end
 
-function CECollage:getSampler()
+function CELayout:getSampler()
   return self.bufferNode:getSampler()
 end

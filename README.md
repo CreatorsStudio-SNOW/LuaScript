@@ -13,11 +13,11 @@ It contains autocomplete tools for Kuru Engine, Samples, Libraries(kits) to scri
 >## Contents
 
 * ### Samples
-  [`1.Basic`](01_basic)
+  [`1.Basic`](Samples/01_basic)
 
-  [`2.FaceParticle`](02_faceparticle)
+  [`2.FaceParticle`](Samples/02_faceparticle)
 
-  [`3.Segmentation`](03_segmentation)
+  [`3.Segmentation`](Samples/03_segmentation)
 
   `4.Todo` : 3D, Game .. 
 

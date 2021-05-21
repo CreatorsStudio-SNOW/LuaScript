@@ -1,3 +1,5 @@
+<img src="https://avatars.githubusercontent.com/u/80811212?v=4"
+style="float: left; height: 50px;"/> 
 # Creators Studio Developer Guide
 This repository provides materials to help developers create SNOW content with scripting.   
 It contains autocomplete tools for Kuru Engine, Samples, Libraries(kits) to script more comfortably.  

@@ -1,13 +1,10 @@
 require "KuruNodeKit/KuruNodeKit.lua" -- ResTransfer.lua 포함 (사용법은 기존과 동일)
 
-snapshotNode = {}
-
 function initialize(scene)
   kuruTouch = KuruTouchExtension.cast(KuruEngine.getInstance():getExtension("KuruTouch"))
   kuruTouch:getTouchDownEvent():addEventHandler(onTouchDown)
-  kuruFace = KuruFaceDetectorExtension.cast(KuruEngine.getInstance():getExtension("KuruFaceDetector"))
 
-  KuruNodeKit.addNodeAndRelease(scene, KuruNodeKit.createClearNode(Vector4.create(0, 0, 0, 0), true))
+  scene:addNodeAndRelease(KuruNodeKit.createClearNode(Vector4.create(0, 0, 0, 0), true))
 
   g_segExtension = KuruSegmentationExtension.cast(KuruEngine.getInstance():getExtension("KuruSegmentation"))
   g_segType = SegType.SKIN -- fill seg type 
@@ -18,25 +15,23 @@ function initialize(scene)
   scene:addNodeAndRelease(alphaNode)
   alphaNode:setStrength(1.0)
 
-  KuruNodeKit.addNodeAndRelease(scene, KuruNodeKit.createStickerNode("mask.png", {
-    rotate = 45*math.pi/180,
+  scene:addNodeAndRelease(KuruNodeKit.createStickerNode("mask.png", {
+    rotate = math.rad(45),
     rotateByDegree = 90
   }))
+
+  g_touchFlag = false
 end
 
 function frameReady(scene, elapsedTime)
-  local sampler = g_segExtension:getSampler(g_segType) -- move to frameReady
+  local sampler = g_segExtension:getSampler(g_segType)
   alphaNode:setChannel0(sampler)
-end
-
-function onAspectRatioChanged(scene)
 end
 
 function finalize(scene)
   kuruTouch:getTouchDownEvent():removeEventHandler(onTouchDown)
 end
 
-isTouch = false
 function onTouchDown(event)
-  isTouch = not isTouch
+  g_touchFlag = not g_touchFlag
 end

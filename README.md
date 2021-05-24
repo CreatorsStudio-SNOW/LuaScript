@@ -1,27 +1,23 @@
 <h1 display="inline-block"> <img display="inline-block" height="45" src="https://avatars.githubusercontent.com/u/80811212?v=4"> Creators Studio  Developer Guide</h1>
 
 This repository provides materials to help developers create SNOW content with scripting.   
-It contains autocomplete tools for Kuru Engine, Samples, Libraries(kits) to script more comfortably.  
+It contains [snippets](tools) for Kuru Engine, [Samples](Samples), [Kits(Libraries)](Kits) to script more comfortably.  
 
-[`About Creators Studio`](http://creatorsstudio.snow.me/)
+[About Creators Studio](http://creatorsstudio.snow.me/)
 
 >## Settings
-- [`Visual Studio Code`](https://code.visualstudio.com/)
-- [`Lua language server`](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
-- [`WebGL GLSL Editor`](https://marketplace.visualstudio.com/items?itemName=raczzalan.webgl-glsl-editor)  
-- [`Kuru Snippets`](../tools)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Lua language server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
+- [WebGL GLSL Editor](https://marketplace.visualstudio.com/items?itemName=raczzalan.webgl-glsl-editor)  
+- [Kuru Snippets](../tools)   
+- Clone this repository
+  ```bash
+  $ git clone https://github.com/CreatorsStudio-SNOW/LuaScript.git
+  ```
 
 >## Contents
 
-* ### Samples
-  [`1.Basic`](Samples/01_basic)
-
-  [`2.FaceParticle`](Samples/02_faceparticle)
-
-  [`3.Segmentation`](Samples/03_segmentation)
-
-  `4.Todo` : 3D, Game .. 
-
+* ### [Samples](Samples)
 * ### Code Convention
   * ### Naming  
      |Type|Rule|Example|
@@ -33,12 +29,13 @@ It contains autocomplete tools for Kuru Engine, Samples, Libraries(kits) to scri
 
   
   * ### Allocation Order
-    `1. require`  
-    `2. Enum, Class`  
-    `3. Constants`  
-    `4. Engine Callback Functions`  
-    `5. Other functions`  
-
+    ```lua
+    1. require  
+    2. Enum, Class  
+    3. Constants  
+    4. Engine Callback Functions  
+    5. Other functions  
+    ```
     <details>  
     <summary>Code Example</summary>  
 
@@ -85,9 +82,7 @@ It contains autocomplete tools for Kuru Engine, Samples, Libraries(kits) to scri
     ```
     </details>
 
-* ### Kits
-  [`Kit`](Libraries) is code modules(library) of frequently used features of Kuru API.make it easy to use frequently used features.  
-  Each [`Kit`](Libraries) sample provides a brief description of the features and supported versions.
-
+* ### [Kits](Kits)
+  
 * ### Kuru API Guide
   - Document will open soon

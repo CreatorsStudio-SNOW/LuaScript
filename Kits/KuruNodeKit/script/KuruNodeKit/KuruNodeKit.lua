@@ -1,6 +1,3 @@
--- https://wiki.navercorp.com/display/LFS/KuruNodeKit
--- Update Date : 200213
--- Writer : 김승연
 DrawType = {
   FACE = 1,
   BACKGROUND = 2,
@@ -76,7 +73,6 @@ function findNode(scene, id)
 end
 
 ---- Snapshot Node
-
 function KuruNodeKit.createSnapshotNode(scale)
 
   local frameBufferScale = scale or 1.0
@@ -87,7 +83,6 @@ function KuruNodeKit.createSnapshotNode(scale)
 end
 
 ---- Clear Node
-
 function KuruNodeKit.createClearNode(color, isDepthBufferClear)
   local isDBClear = isDepthBufferClear or false
 
@@ -103,6 +98,7 @@ end
 
 ---- Builtin Distortion
 function KuruNodeKit.createBuiltInDistortionNode() -- 9.6.0
+  EngineStatus.instance():setBoolean("useBuiltInDistortionInScript", true)
   return KuruUniDistortionNode.create()
 end
 ---- Hand Sticker
@@ -224,7 +220,6 @@ function KuruNodeKit.createStickerNodeFromSampler(sampler, stickerInfo)
 end
 
 ---- Background Node
-
 function KuruNodeKit.createBGNode(filePath, stickerInfo)
   if stickerInfo == nil then stickerInfo = {} end
 
@@ -305,7 +300,6 @@ function KuruNodeKit.getRotateAnchorType(anchorType)
 end
 
 ---- SKIN 106 EX Node
-
 function KuruNodeKit.createSkinExNode(filePath, stickerInfo)
   if stickerInfo == nil then stickerInfo = {} end
 
@@ -324,6 +318,7 @@ function KuruNodeKit.createSkinExNodeFromSampler(sampler, stickerInfo)
   -- 8.0.0
   local skinType = stickerInfo.skinType or KaleFaceSkinType.FACE_106_EX -- skinType FACE, FACE_EX, FACE_106_EX
   local blendMode = stickerInfo.blendMode or BlendMode.None
+  local alpha = stickerInfo.alpha or 1.0
 
   local skinEx = KaleFaceSkinNodeSkinEx.create()
 
@@ -344,11 +339,13 @@ function KuruNodeKit.createSkinExNodeFromSampler(sampler, stickerInfo)
   skinExBuilder:skinEx(skinEx)
   skinExBuilder:build()
 
-  return KaleFaceSkinNode.create(skinExBuilder)
+  local skinExNode = KaleFaceSkinNode.create(skinExBuilder)
+  skinExNode:setModulateAlpha(alpha)
+
+  return skinExNode
 end
 
 ---- Segmentation Node
-
 function KuruNodeKit.createSegmentationNode(sourceSampler, stickerInfo)
   if stickerInfo == nil then stickerInfo = {} end
 
@@ -383,10 +380,9 @@ function KuruNodeKit.createSegmentationNode(sourceSampler, stickerInfo)
 end
 
 ---- Headshot Node
-
 function KuruNodeKit.createHeadshotNode(maskFilePath, sourceSampler)
   local skinEx = KaleFaceSkinNodeSkinEx.create():modelType(
-                     StickerItemSkinExModelType.ASIAN)
+                     StickerItemSkinExModelType.ASIAN):visibilityOn(false)
 
   local headshotBuilder = KuruHeadshotNodeBuilder.create()
   headshotBuilder:setSkinExMetadata(skinEx)
@@ -398,13 +394,38 @@ function KuruNodeKit.createHeadshotNode(maskFilePath, sourceSampler)
   return headshotNode
 end
 
----- KaleFaceModelNode for 3d contents
+-- 3D KaleFaceModelNode
+function KuruNodeKit.createFaceModelNode(gpbFilePath, stickerInfo)
+  if stickerInfo == nil then
+    stickerInfo = {}
+  end
+  local materialPath = string.gsub(gpbFilePath, ".gpb", ".material")
+  local node = KuruNodeKit.createFaceModelFromMaterial(gpbFilePath, materialPath, stickerInfo)
+  return node
+end
 
-function KuruNodeKit.createFaceModelNode(gpbFilePath)
+function KuruNodeKit.createFaceModelFromMaterial(gpbFilePath, materialPath, stickerInfo)
+  if stickerInfo == nil then
+    stickerInfo = {}
+  end
 
-  local node = KaleFaceModelNode.create(BASE_DIRECTORY .. gpbFilePath)
-  node:getStickerItem().flipHorizontally = true
+  local faceOffset = stickerInfo.faceOffset or Vector3.create(0, 0, 0)
+  local scale = stickerInfo.scale or 1.0
+  local rotateXYZ = stickerInfo.rotateXYZ or Vector3.create(0, 0, 0)
+  local faceRotationMultiplyFactor = stickerInfo.faceRotationMultiplyFactor or Vector3.create(1, 1, 1)
+  local useFaceRecalculateExcludeChin = stickerInfo.useFaceRecalculateExcludeChin or false
+  local useFaceRecalculate = stickerInfo.useFaceRecalculate or true
 
+  local node = KaleFaceModelNode.createFromBuilder(KuruModelNodeBuilder.create():path(BASE_DIRECTORY .. gpbFilePath):materialPath(BASE_DIRECTORY .. materialPath):build())
+  local item = StickerItem.create()
+  item:getConfig().faceOffset = faceOffset
+  item:getConfig().faceRotationMultiplyFactor = faceRotationMultiplyFactor
+  item:getConfig().useFaceRecalculateExcludeChin = useFaceRecalculateExcludeChin
+  item:getConfig().useFaceRecalculate = useFaceRecalculate
+  item.rotateXYZ = rotateXYZ
+  item.scaleXYZ = Vector3.create(scale, scale, scale)
+  node:setStickerItem(item)
+  node:setFlipHorizontally(false)
   return node
 end
 
@@ -423,7 +444,6 @@ function KuruNodeKit.createFaceFittingNode(gpbFilePath, stickerInfo)
 end
 
 ---- common
-
 function KuruNodeKit.createAnimationSampler(filePath, fps, repeatCount)
   local sampler = KuruAnimationSampler.createFromPath(
                       BASE_DIRECTORY .. filePath, false, false)
@@ -455,14 +475,18 @@ function KuruNodeKit.createPassthroughWithMatrix(sampler, matrix)
 end
 
 function KuruNodeKit.createShaderNode(vert, frag)
-  node = KuruShaderFilterNode.createWithFile(BASE_DIRECTORY .. vert,
-                                             BASE_DIRECTORY .. frag, true)
+  local node = KuruShaderFilterNode.createWithFile(BASE_DIRECTORY .. vert,
+                                                   BASE_DIRECTORY .. frag, true)
   return node
 end
 
-function KuruNodeKit.createFragmentShaderNode(path)
-  node = KuruShaderFilterNode.createWithFragmentShaderFile(
-             BASE_DIRECTORY .. path, true)
+function KuruNodeKit.createFragmentShaderNode(path, useStrength)
+  useStrength = useStrength or false
+
+  local shaderBuilder =
+      KuruShaderFilterNodeBuilder.create():fragmentShaderFilePath(
+          BASE_DIRECTORY .. path):useStrength(useStrength):build()
+  local node = KuruShaderFilterNode.create(shaderBuilder)
   return node
 end
 
@@ -481,6 +505,7 @@ end
 FRAGMENT_MASK_SHADER = [[
 
 uniform float maskRatio;
+uniform bool isFit;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
@@ -504,6 +529,14 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     offsetX = ((1.0 - scaleX) / 2.0);
   }
 
+  if (isFit == false)
+  {
+    scaleX *= maskFrameAspect;
+    offsetX = ((1.0 - scaleX) / 2.0);
+    scaleY *= maskFrameAspect;
+    offsetY = ((1.0 - scaleY) / 2.0);
+  }
+
   maskUV = vec2(maskUV.x * scaleX + offsetX, maskUV.y * scaleY + offsetY);
 
   if (maskUV.x < 0.0 || maskUV.x > 1.0 || maskUV.y < 0.0 || maskUV.y > 1.0)
@@ -518,28 +551,26 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 }
 ]]
 
-function KuruNodeKit.createMaskNode(sourceSampler, maskFile)
-
+function KuruNodeKit.createMaskNode(sourceSampler, maskFile, isFit)
   local maskSampler = KuruNodeKit.createTextureSampler(maskFile)
-
   local maskNode = KuruNodeKit.createMaskNodeFromSampler(sourceSampler,
-                                                         maskSampler)
-
+                                                         maskSampler, isFit)
   maskSampler:release()
-
   return maskNode
 end
 
-function KuruNodeKit.createMaskNodeFromSampler(sourceSampler, maskSampler)
-
+function KuruNodeKit.createMaskNodeFromSampler(sourceSampler, maskSampler, isFit)
   local maskTextureRatio = 1.0
+  isFit = (isFit == nil) and true or isFit
+
+  local resolution = KuruEngine.getInstance():getResolution()
+  maskTextureRatio = resolution.x / resolution.y
 
   if maskSampler ~= nil then
     local maskTexture = maskSampler:getTexture()
-    maskTextureRatio = maskTexture:getWidth() / maskTexture:getHeight()
-  else
-    local resolution = KuruEngine.getInstance():getResolution()
-    maskTextureRatio = resolution.x / resolution.y
+    if maskTexture ~= nil then
+      maskTextureRatio = maskTexture:getWidth() / maskTexture:getHeight()
+    end
   end
 
   local shaderBuilder =
@@ -554,6 +585,7 @@ function KuruNodeKit.createMaskNodeFromSampler(sourceSampler, maskSampler)
   stateBlock:setBlendDst(RenderStateBlend.BLEND_ONE_MINUS_SRC_ALPHA)
 
   node:getMaterial():getParameter("maskRatio"):setFloat(maskTextureRatio)
+  node:getMaterial():getParameter("isFit"):setBool(isFit)
   node:setChannel0(sourceSampler)
   node:setChannel1(maskSampler)
 
@@ -604,4 +636,27 @@ end
 function KuruNodeKit.addChildAndRelease(parent, child)
   parent:addChildAndRelease(child)
   return child
+end
+
+function KuruNodeKit.findNode(nodeId)
+  local node = _owner:getFirstNode()
+
+  while (node) do
+    if (node:getId() == nodeId) then break end
+    node = node:getNextSibling()
+  end
+
+  return node
+end
+
+function KuruNodeKit.findAllNodes(nodeId)
+  local node = _owner:getFirstNode()
+  local resultNodes = {}
+
+  while (node) do
+    if (node:getId() == nodeId) then table.insert(resultNodes, node) end
+    node = node:getNextSibling()
+  end
+
+  return resultNodes
 end
